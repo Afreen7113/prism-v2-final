@@ -1,0 +1,4093 @@
+## DEFAULT THEME & GLOBAL HOVER LEAK AUDIT
+
+### PROBLEM 1: Root Cause Investigation
+
+1. **Which theme is active on initial page load:** The hardcoded `defaultTheme` state object.
+2. **Where the default theme is being assigned:** During SSR and initial state initialization in `providers/ThemeProvider.tsx`.
+3. **Whether localStorage, ThemeProvider, cookies, or fallback logic are forcing a hidden/default preset:** `ThemeProvider` forces the initial React state to `defaultTheme` before `useIsomorphicLayoutEffect` has a chance to read `localStorage` or system preferences on the client.
+4. **Which preset is responsible for the purple appearance:** The `defaultTheme` object itself is hardcoded with `var(--color-indigo-500)` as the `primaryColor`, causing the purple/indigo leak before the active preset is applied.
+5. **Exact file and line number:** `providers/ThemeProvider.tsx`, lines 33-54 (definition) and line 207 (initial state assignment).
+
+### PROBLEM 2: Global Hover Leak Audit
+
+* **File path**: `app/layout.tsx`
+* **Line number**: `29`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/layout.tsx`
+* **Line number**: `10`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/layout.tsx`
+* **Line number**: `32`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/layout.tsx`
+* **Line number**: `38`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `51`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `60`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `69`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `161`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `161`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `187`
+* **Exact class**: `bg-brand/60`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `189`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `189`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `198`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/page.tsx`
+* **Line number**: `198`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/api-keys/page.tsx`
+* **Line number**: `50`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/api-keys/page.tsx`
+* **Line number**: `178`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/audit-logs/page.tsx`
+* **Line number**: `47`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/audit-logs/page.tsx`
+* **Line number**: `175`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/audit-logs/page.tsx`
+* **Line number**: `175`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `14`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `31`
+* **Exact class**: `bg-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `31`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `32`
+* **Exact class**: `bg-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `32`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `33`
+* **Exact class**: `bg-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `33`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `34`
+* **Exact class**: `bg-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `34`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `35`
+* **Exact class**: `bg-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `35`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `36`
+* **Exact class**: `bg-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `36`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `37`
+* **Exact class**: `bg-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/billing/page.tsx`
+* **Line number**: `37`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `80`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `119`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `119`
+* **Exact class**: `bg-brand/15`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `140`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `160`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `168`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `516`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `539`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `539`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `615`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `616`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `673`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `688`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `695`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `713`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `750`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `903`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `919`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `942`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `944`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `999`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `999`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1009`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1009`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1063`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1063`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1073`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1073`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1084`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1084`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1106`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1106`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1125`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1125`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1141`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1141`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1150`
+* **Exact class**: `shadow-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1162`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1175`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1175`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1175`
+* **Exact class**: `border-brand/50`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1175`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1189`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1207`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1213`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1222`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1226`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1255`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1282`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1286`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1292`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/chart-builder/page.tsx`
+* **Line number**: `1300`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `112`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `134`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `139`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `178`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `178`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `189`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `189`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `213`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `216`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `217`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `218`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/sdk/page.tsx`
+* **Line number**: `219`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/settings/page.tsx`
+* **Line number**: `22`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/settings/page.tsx`
+* **Line number**: `22`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/settings/page.tsx`
+* **Line number**: `56`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/settings/page.tsx`
+* **Line number**: `84`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/storybook/components.tsx`
+* **Line number**: `27`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/storybook/components.tsx`
+* **Line number**: `73`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/tenant-manager/page.tsx`
+* **Line number**: `139`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/tenant-manager/page.tsx`
+* **Line number**: `139`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/tenant-manager/page.tsx`
+* **Line number**: `152`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/tenant-manager/page.tsx`
+* **Line number**: `152`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/tenant-manager/page.tsx`
+* **Line number**: `161`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/tenant-manager/page.tsx`
+* **Line number**: `161`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/tenant-manager/page.tsx`
+* **Line number**: `161`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `103`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `110`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `136`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `156`
+* **Exact class**: `bg-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `156`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `156`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `187`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `205`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `223`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `235`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `257`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `271`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `274`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `275`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `279`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `283`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `323`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/theme-playground/page.tsx`
+* **Line number**: `326`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/usage-telemetry/page.tsx`
+* **Line number**: `53`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/usage-telemetry/page.tsx`
+* **Line number**: `158`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/usage-telemetry/page.tsx`
+* **Line number**: `164`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/usage-telemetry/page.tsx`
+* **Line number**: `207`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/admin/usage-telemetry/page.tsx`
+* **Line number**: `230`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `90`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `95`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `98`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `98`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `99`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `102`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `108`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `108`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `108`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `131`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `163`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `282`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `283`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/charts/page.tsx`
+* **Line number**: `283`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `136`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `141`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `144`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `144`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `145`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `148`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `177`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `195`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `195`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `215`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `215`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `215`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `228`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `243`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `266`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `273`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `314`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `315`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `316`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `316`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `344`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `354`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `365`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `372`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `386`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/date-picker/page.tsx`
+* **Line number**: `386`
+* **Exact class**: `bg-brand/90`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `37`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `37`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `37`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `96`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `101`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `108`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `115`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `115`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `115`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `127`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `138`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `153`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `154`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `164`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `164`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `164`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `178`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `178`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `178`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `192`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `204`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `214`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `215`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `220`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `220`
+* **Exact class**: `text-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `224`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `239`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `255`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `264`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `264`
+* **Exact class**: `bg-brand/90`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `272`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `296`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `316`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `326`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `327`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `327`
+* **Exact class**: `text-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `349`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `367`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/exports/page.tsx`
+* **Line number**: `367`
+* **Exact class**: `text-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `68`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `68`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `68`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `70`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `85`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `88`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `141`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `146`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `149`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `149`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `150`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `153`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `159`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `159`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `159`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `163`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `163`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `163`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `173`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `174`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `192`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `192`
+* **Exact class**: `border-brand/50`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `207`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `207`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `207`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `227`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `249`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `272`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `272`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `272`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `278`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `278`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `278`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `288`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `288`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `288`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `294`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `294`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `294`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `316`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `321`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `341`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `346`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `346`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `346`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `347`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `347`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `347`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/filters/page.tsx`
+* **Line number**: `361`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `58`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `59`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `59`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `92`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `93`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `93`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `103`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `104`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `104`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `127`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `128`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `128`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `138`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `139`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `139`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `150`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `151`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `151`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `209`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `214`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `221`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `233`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `245`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `247`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `248`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `278`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `278`
+* **Exact class**: `border-brand/50`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `282`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `283`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `287`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `289`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `318`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `325`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/kpi-cards/page.tsx`
+* **Line number**: `358`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `126`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `132`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `137`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `140`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `140`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `141`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `144`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `150`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `150`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `150`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `166`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `166`
+* **Exact class**: `border-brand/50`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `173`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `181`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `181`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `181`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `185`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `188`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `210`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `210`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `210`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `224`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `224`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `224`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `253`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `272`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `283`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `288`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `288`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `288`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `289`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `289`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `289`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `293`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `301`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `301`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `302`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `302`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `322`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `333`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `333`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `333`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `app/components/tables/page.tsx`
+* **Line number**: `342`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/GlobalThemeSelector.tsx`
+* **Line number**: `23`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/GlobalThemeSelector.tsx`
+* **Line number**: `24`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/GlobalThemeSelector.tsx`
+* **Line number**: `38`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/GlobalThemeSelector.tsx`
+* **Line number**: `38`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/GlobalThemeSelector.tsx`
+* **Line number**: `39`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/GlobalThemeSelector.tsx`
+* **Line number**: `39`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/GlobalThemeSelector.tsx`
+* **Line number**: `46`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/GlobalThemeSelector.tsx`
+* **Line number**: `61`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `127`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `131`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `135`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `409`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `410`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `427`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `435`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `441`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `451`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `453`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/PrismDashboard.tsx`
+* **Line number**: `467`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `53`
+* **Exact class**: `bg-brand/15`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `53`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `53`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `54`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `68`
+* **Exact class**: `bg-brand/15`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `68`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `68`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `69`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `88`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `89`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `90`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `91`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `92`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `92`
+* **Exact class**: `text-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/admin/AdminSidebar.tsx`
+* **Line number**: `112`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `168`
+* **Exact class**: `bg-brand/75`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `252`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `256`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `305`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `314`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `374`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `374`
+* **Exact class**: `border-brand/40`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `374`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `467`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `611`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `611`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `611`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `656`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `664`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `701`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `710`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `719`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `728`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `737`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/BentoGrid.tsx`
+* **Line number**: `746`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `14`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `15`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `15`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `22`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `23`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `23`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `30`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `31`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `31`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `38`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `39`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `39`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `68`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `79`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `82`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `92`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `107`
+* **Exact class**: `text-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `127`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `133`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `150`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `170`
+* **Exact class**: `text-brand/90`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `172`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `172`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `173`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `196`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `197`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `199`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `213`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `248`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ComponentsSection.tsx`
+* **Line number**: `251`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `209`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `217`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `283`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `283`
+* **Exact class**: `border-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `284`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `300`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `311`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `315`
+* **Exact class**: `bg-brand/70`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `324`
+* **Exact class**: `bg-brand/70`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `333`
+* **Exact class**: `bg-brand/70`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `415`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `447`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `448`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `448`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `448`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `462`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `469`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `517`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `519`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `519`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/DeveloperExperience.tsx`
+* **Line number**: `519`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `63`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `84`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `84`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `84`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `88`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `126`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `134`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `134`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `135`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `135`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `154`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `154`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `154`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `170`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `178`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `178`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `181`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `181`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `199`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `199`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbeddableIsolation.tsx`
+* **Line number**: `199`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbedsAnywhere.tsx`
+* **Line number**: `32`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbedsAnywhere.tsx`
+* **Line number**: `153`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbedsAnywhere.tsx`
+* **Line number**: `153`
+* **Exact class**: `text-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbedsAnywhere.tsx`
+* **Line number**: `154`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/EmbedsAnywhere.tsx`
+* **Line number**: `155`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `93`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `101`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `158`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `158`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `169`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `174`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `177`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `223`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `223`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `234`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `239`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FAQ.tsx`
+* **Line number**: `242`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FinalCTA.tsx`
+* **Line number**: `88`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FinalCTA.tsx`
+* **Line number**: `94`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FinalCTA.tsx`
+* **Line number**: `99`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/FinalCTA.tsx`
+* **Line number**: `153`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `56`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `127`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `145`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `165`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `170`
+* **Exact class**: `bg-brand/15`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `170`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `170`
+* **Exact class**: `border-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `209`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `211`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Footer.tsx`
+* **Line number**: `213`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `135`
+* **Exact class**: `border-brand/25`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `135`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `142`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `148`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `189`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `189`
+* **Exact class**: `shadow-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `189`
+* **Exact class**: `shadow-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `209`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `209`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `209`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `251`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `279`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `283`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `283`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `316`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/hero.tsx`
+* **Line number**: `370`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/LogoMarquee.tsx`
+* **Line number**: `57`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/LogoMarquee.tsx`
+* **Line number**: `76`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `64`
+* **Exact class**: `bg-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `87`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `95`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `138`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `146`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `158`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `166`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `178`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `186`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `198`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/MetricsBand.tsx`
+* **Line number**: `206`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Pricing.tsx`
+* **Line number**: `35`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Pricing.tsx`
+* **Line number**: `49`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Pricing.tsx`
+* **Line number**: `141`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Pricing.tsx`
+* **Line number**: `153`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Pricing.tsx`
+* **Line number**: `156`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Pricing.tsx`
+* **Line number**: `160`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Pricing.tsx`
+* **Line number**: `160`
+* **Exact class**: `border-brand/60`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Pricing.tsx`
+* **Line number**: `198`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Pricing.tsx`
+* **Line number**: `238`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ProblemSection.tsx`
+* **Line number**: `86`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ProblemSection.tsx`
+* **Line number**: `96`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ProblemSection.tsx`
+* **Line number**: `148`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/ProblemSection.tsx`
+* **Line number**: `162`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Testimonials.tsx`
+* **Line number**: `76`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Testimonials.tsx`
+* **Line number**: `84`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Testimonials.tsx`
+* **Line number**: `167`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Testimonials.tsx`
+* **Line number**: `175`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/Testimonials.tsx`
+* **Line number**: `181`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `138`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `145`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `145`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `145`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `150`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `235`
+* **Exact class**: `text-brand/60`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `238`
+* **Exact class**: `text-brand/60`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `243`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `243`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `252`
+* **Exact class**: `text-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `255`
+* **Exact class**: `text-brand/80`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `269`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `272`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `276`
+* **Exact class**: `bg-brand/5`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `276`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `277`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `277`
+* **Exact class**: `shadow-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `280`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `281`
+* **Exact class**: `text-brand/70`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `281`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `292`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `292`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `292`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `384`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `385`
+* **Exact class**: `text-brand/70`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `388`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/sections/TokenArchitecture.tsx`
+* **Line number**: `389`
+* **Exact class**: `text-brand/70`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/AdminSurfaceBadge.tsx`
+* **Line number**: `11`
+* **Exact class**: `bg-brand/10`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/AdminSurfaceBadge.tsx`
+* **Line number**: `11`
+* **Exact class**: `border-brand/20`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/AdminSurfaceBadge.tsx`
+* **Line number**: `12`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/AdminSurfaceBadge.tsx`
+* **Line number**: `13`
+* **Exact class**: `bg-brand/15`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/AdminSurfaceBadge.tsx`
+* **Line number**: `13`
+* **Exact class**: `border-brand/30`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/Button.tsx`
+* **Line number**: `29`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/Card.tsx`
+* **Line number**: `14`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/ChartWidget.tsx`
+* **Line number**: `15`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/MetricCard.tsx`
+* **Line number**: `19`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/ThemeSelector.tsx`
+* **Line number**: `23`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/ThemeSelector.tsx`
+* **Line number**: `24`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/ThemeSelector.tsx`
+* **Line number**: `34`
+* **Exact class**: `bg-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+
+* **File path**: `components/ui/ThemeSelector.tsx`
+* **Line number**: `35`
+* **Exact class**: `text-brand`
+* **Changes correctly with theme change**: Yes
+* **Tokenized or hardcoded**: Tokenized
+* **Classification**: **SAFE TOKENIZED**
+

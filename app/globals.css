@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;700&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* --- LAYER 1: PRIMITIVE TOKENS --- */
+  /* Neutral scale */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+  
+  /* Brand primitives */
+  --color-indigo-500: #6366f1;
+  --color-indigo-600: #4f46e5;
+  --color-sky-500: #0ea5e9;
+  --color-purple-500: #8b5cf6;
+  --color-emerald-500: #10b981;
+  --color-amber-500: #F59E0B;
+--color-red-500: #EF4444;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  
+  /* Code Syntax Primitives */
+  --color-code-keyword: #c084fc; /* Violet */
+  --color-code-string: #86efac;  /* Green */
+  --color-code-component: #60a5fa; /* Blue */
+  --color-code-prop: #fbbf24; /* Amber */
+  --color-code-comment: #71717a; /* Gray */
+  --color-code-default: #e4e4e7; /* Light Gray */
+
+  /* Spacing & Radius primitives */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Typography primitives */
+  --font-inter: 'Inter', sans-serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
+  --font-geist: 'Geist', sans-serif;
+  --font-geist-mono: 'Geist Mono', monospace;
+
+  /* --- LAYER 2: SEMANTIC TOKENS (LIGHT DEFAULT) --- */
+  /* Base structural colors */
+  --semantic-bg: var(--color-slate-50);
+  --semantic-surface: var(--color-white);
+  --semantic-elevated: var(--color-slate-100);
+  
+  /* Text */
+  --semantic-text-primary: var(--color-slate-900);
+  --semantic-text-secondary: var(--color-slate-600);
+  --semantic-text-muted: var(--color-slate-700);
+  
+  /* Borders */
+  --semantic-border: var(--color-slate-200);
+  
+  /* Brand roles */
+  --semantic-primary: var(--color-indigo-600);
+  --semantic-accent: var(--color-sky-500);
+  --semantic-success: var(--color-emerald-500);
+  --semantic-text-on-primary: var(--color-white);
+  
+  /* Visual effects */
+  --semantic-glass-bg: rgba(255, 255, 255, 0.75);
+  --semantic-glass-border: rgba(15, 23, 42, 0.08);
+  --semantic-grid-color: rgba(15, 23, 42, 0.03);
+  --semantic-primary-glow: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  --semantic-border-glow: color-mix(in srgb, var(--color-primary) 5%, transparent);
+
+  --semantic-radius: var(--radius-lg);
+  --semantic-font: var(--font-inter);
+  --semantic-font-mono: var(--font-geist-mono);
+
+  /* --- LAYER 3: COMPONENT TOKENS (Mapped to Semantics) --- */
+  /* Tailwind aliases (these map to what components actually use) */
+  --prism-site-bg: var(--semantic-bg);
+  --prism-site-surface: var(--semantic-surface);
+  --prism-site-elevated: var(--semantic-elevated);
+  --prism-site-text: var(--semantic-text-primary);
+  --prism-site-text-secondary: var(--semantic-text-secondary);
+  --prism-site-text-muted: var(--semantic-text-muted);
+  --prism-site-border: var(--semantic-border);
+  
+  --prism-semantic-primary: var(--semantic-primary);
+  --prism-semantic-accent: var(--semantic-accent);
+  --prism-semantic-success: var(--semantic-success);
+
+  --prism-primary-glow: var(--semantic-primary-glow);
+  --prism-border-glow: var(--semantic-border-glow);
+  --prism-glass-bg: var(--semantic-glass-bg);
+  --prism-glass-border: var(--semantic-glass-border);
+  --prism-grid-color: var(--semantic-grid-color);
+
+  --prism-semantic-font: var(--semantic-font);
+  --prism-font-mono: var(--semantic-font-mono);
+
+  /* Dashboard / Card specific aliases */
+  --prism-dashboard-bg: var(--semantic-surface);
+  --prism-dashboard-text: var(--semantic-text-primary);
+  --prism-dashboard-text-secondary: var(--semantic-text-secondary);
+  --prism-dashboard-border: var(--semantic-border);
+  --prism-card-bg: var(--semantic-elevated);
+  --prism-card-border: var(--semantic-border);
+  --prism-card-radius: var(--semantic-radius);
+  --prism-button-bg: var(--semantic-primary);
+  --prism-button-text: #ffffff;
+  --prism-button-radius: var(--semantic-radius);
+  --prism-chart-primary: var(--semantic-primary);
+  --prism-chart-accent: var(--semantic-accent);
+  --prism-sidebar-bg: var(--semantic-bg);
+  --prism-sidebar-border: var(--semantic-border);
+
+  /* USER REQUESTED TOKENS */
+  --color-bg-base: var(--semantic-bg);
+  --color-bg-surface: var(--semantic-surface);
+  --color-bg-elevated: var(--semantic-elevated);
+  --color-text-muted: var(--semantic-text-muted);
+  --color-border-subtle: var(--semantic-border);
+  --color-text-primary: var(--semantic-text-primary);
+  --color-text-secondary: var(--semantic-text-secondary);
+  --color-chart-axis: #CBD5E1;
+
+  --color-border-subtle: var(--semantic-border);
+  --color-border-default: var(--color-slate-300);
+  --color-primary: var(--semantic-primary);
+  --color-primary-hover: color-mix(in srgb, var(--color-primary) 85%, black);
+  --color-accent: var(--semantic-accent);
+  
+  /* System State Tokens - Intentionally Fixed */
+  --color-info: var(--color-sky-500);
+  --color-success: var(--semantic-success);
+  --color-warning: var(--color-amber-500);
+  --color-red-500: #EF4444;
+  --color-error: var(--color-red-500);
+
+  /* Permission Badge Tokens */
+  --permission-read-text: var(--color-sky-500);
+  --permission-read-bg: color-mix(in srgb, var(--color-sky-500) 15%, transparent);
+  --permission-read-border: color-mix(in srgb, var(--color-sky-500) 25%, transparent);
+
+  --shadow-glow-primary: 0 0 40px color-mix(in srgb, var(--color-primary) 30%, transparent);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  --semantic-text-on-primary: var(--color-white);
+}
+
+/* DARK MODE OVERRIDES AT SEMANTIC LAYER */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --semantic-bg: var(--color-slate-950);
+    --semantic-surface: var(--color-slate-900);
+    --semantic-elevated: var(--color-slate-800);
+    
+    --semantic-text-primary: var(--color-slate-50);
+    --semantic-text-secondary: var(--color-slate-300);
+    --semantic-text-muted: var(--color-slate-400);
+    
+    --semantic-border: rgba(255, 255, 255, 0.08);
+    
+    --semantic-primary: var(--color-indigo-500);
+    
+    --semantic-glass-bg: rgba(15, 23, 42, 0.7);
+    --semantic-glass-border: rgba(255, 255, 255, 0.08);
+    --semantic-grid-color: rgba(255, 255, 255, 0.03);
+    --semantic-primary-glow: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    --semantic-border-glow: color-mix(in srgb, var(--color-primary) 25%, transparent);
+  }
+}
+
+/* Explicit dark mode selector */
+:root[data-theme="dark"] {
+  --semantic-bg: var(--color-slate-950);
+  --semantic-surface: var(--color-slate-900);
+  --semantic-elevated: var(--color-slate-800);
+  
+  --semantic-text-primary: var(--color-slate-50);
+  --semantic-text-secondary: var(--color-slate-300);
+  --semantic-text-muted: var(--color-slate-400);
+  
+  --semantic-border: rgba(255, 255, 255, 0.08);
+  
+  --semantic-primary: var(--color-indigo-500);
+  
+  --semantic-glass-bg: rgba(15, 23, 42, 0.7);
+  --semantic-glass-border: rgba(255, 255, 255, 0.08);
+  --semantic-grid-color: rgba(255, 255, 255, 0.03);
+  --semantic-primary-glow: color-mix(in srgb, var(--color-primary) 35%, transparent);
+  --semantic-border-glow: color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+  overflow-x: hidden;
+    background-color: var(--prism-site-bg);
+    color: var(--prism-site-text);
+    font-family: var(--prism-semantic-font), sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    transition: background-color 300ms, color 300ms;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--prism-semantic-font), sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  code, pre {
+    font-family: var(--prism-font-mono), monospace;
+  }
+}
+
+@layer utilities {
+  .glass {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background-color: var(--prism-glass-bg);
+    border: 1px solid var(--prism-glass-border);
+    transition: background-color 300ms, border-color 300ms;
+  }
+
+  .gradient-text {
+    background: linear-gradient(120deg, var(--prism-semantic-primary), var(--prism-semantic-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.04;
+    z-index: 9999;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  .bg-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, var(--prism-grid-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--prism-grid-color) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 80%);
+    animation: grid-pulse 20s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes grid-pulse {
+  0% { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 1.2; transform: scale(1.05); }
+}
+
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    var(--prism-primary-glow),
+    transparent 100px
+  );
+  opacity: 0;
+  transition: opacity 300ms;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bento-card:hover::before { opacity: 0.08; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--prism-site-bg); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--prism-semantic-primary), var(--prism-semantic-accent));
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--semantic-primary);
+  color: var(--semantic-text-on-primary);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--prism-semantic-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.bg-gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.gradient-text-primary {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@layer utilities {
+  .hover-semantic-card {
+    transition: all 300ms ease;
+  }
+  .hover-semantic-card:hover {
+    background-color: color-mix(in srgb, var(--semantic-primary) 5%, transparent);
+    border-color: color-mix(in srgb, var(--semantic-primary) 20%, transparent);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .hover-semantic-surface {
+    transition: all 300ms ease;
+  }
+  .hover-semantic-surface:hover {
+    background-color: color-mix(in srgb, var(--semantic-elevated) 20%, transparent);
+    border-color: color-mix(in srgb, var(--semantic-primary) 20%, transparent);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .hover-semantic-button {
+    transition: all 300ms ease;
+  }
+  .hover-semantic-button:hover {
+    background-color: color-mix(in srgb, var(--semantic-primary) 5%, transparent);
+    border-color: color-mix(in srgb, var(--semantic-primary) 20%, transparent);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+}
