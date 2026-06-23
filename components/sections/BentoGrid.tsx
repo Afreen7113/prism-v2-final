@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Database, Sheet, FileText, Code, Zap, Terminal, Check } from "lucide-react";
+import { presets } from "@/providers/ThemeProvider";
 
 
 // =========================================================================
@@ -17,19 +18,9 @@ interface BentoCardProps {
 function BentoCard({ children, className = "", index }: BentoCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
-    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
-  };
-
   return (
     <motion.div
       ref={cardRef}
-      onMouseMove={handleMouseMove}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -175,11 +166,31 @@ function Card1CodeEditor() {
 
 // =========================================================================
 // CARD 2: Brand theme options
-// =========================================================================
 const brandThemes = [
-  { id: "healthcare", bg: "var(--color-white)", primary: "#0EA5E9", text: "#1F2937", border: "rgba(0, 0, 0, 0.08)" },
-  { id: "fintech", bg: "#064E3B", primary: "#FBBF24", text: "#FAFAFA", border: "rgba(251, 191, 36, 0.2)" },
-  { id: "consumer", bg: "#9F1239", primary: "var(--color-white)", text: "var(--color-white)", border: "rgba(255, 255, 255, 0.2)" }, // consumer deep rose
+  { 
+    id: "healthcare", 
+    bg: presets["healthcare"]?.surfaceColor || "var(--color-white)", 
+    primary: presets["healthcare"]?.primaryColor || "#0EA5E9", 
+    textPrimary: presets["healthcare"]?.textPrimary || "#1F2937", 
+    textSecondary: presets["healthcare"]?.textSecondary || "#4B5563",
+    border: "var(--semantic-border)" 
+  },
+  { 
+    id: "fintech", 
+    bg: `color-mix(in srgb, ${presets["fintech"]?.primaryColor} 15%, ${presets["fintech"]?.bgColor})`, 
+    primary: presets["fintech"]?.accentColor || "#FBBF24", 
+    textPrimary: presets["fintech"]?.textPrimary || "#FAFAFA", 
+    textSecondary: presets["fintech"]?.textSecondary || "#D1D5DB",
+    border: `color-mix(in srgb, ${presets["fintech"]?.accentColor} 20%, transparent)` 
+  },
+  { 
+    id: "consumer", 
+    bg: `color-mix(in srgb, ${presets["consumer"]?.primaryColor} 95%, ${presets["consumer"]?.bgColor})`, 
+    primary: presets["consumer"]?.accentColor || "var(--color-white)", 
+    textPrimary: presets["fintech"]?.textPrimary || "#FAFAFA", 
+    textSecondary: presets["fintech"]?.textSecondary || "#D1D5DB",
+    border: `color-mix(in srgb, ${presets["consumer"]?.accentColor} 30%, transparent)` 
+  },
 ];
 
 function Card2WhiteLabel() {
@@ -204,16 +215,17 @@ function Card2WhiteLabel() {
           <motion.div
             key={offset}
             animate={{
-              backgroundColor: theme.bg,
-              color: theme.text,
-              borderColor: theme.border,
-            }}
+              "--local-bg": theme.bg,
+              "--semantic-text-primary": theme.textPrimary,
+              "--semantic-text-secondary": theme.textSecondary,
+              "--semantic-border": theme.border,
+            } as any} // eslint-disable-line @typescript-eslint/no-explicit-any
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="w-1/3 rounded-xl border p-3 flex flex-col justify-between h-[150px] shadow-lg overflow-hidden"
+            className="w-1/3 rounded-xl border border-[var(--semantic-border)] bg-[var(--local-bg)] text-[var(--semantic-text-primary)] p-3 flex flex-col justify-between h-[150px] shadow-lg overflow-hidden"
           >
             {/* Top Stat */}
             <div className="text-left flex flex-col">
-              <span className="text-xs opacity-65 uppercase tracking-wide">MRR Growth</span>
+              <span className="text-xs text-[var(--semantic-text-secondary)] uppercase tracking-wide">MRR Growth</span>
               <span className="text-sm font-bold mt-0.5">$38.2K</span>
             </div>
 

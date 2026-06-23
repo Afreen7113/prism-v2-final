@@ -132,7 +132,7 @@ export default function MetricsBand() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           
           {/* Stat 1 */}
-          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
+          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:shadow-card transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-4">
               <Building2 className="w-4 h-4 text-brand opacity-80" />
@@ -152,7 +152,7 @@ export default function MetricsBand() {
           </div>
 
           {/* Stat 2 */}
-          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
+          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:shadow-card transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-4">
               <Activity className="w-4 h-4 text-brand opacity-80" />
@@ -172,7 +172,7 @@ export default function MetricsBand() {
           </div>
 
           {/* Stat 3 */}
-          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
+          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:shadow-card transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-4">
               <Zap className="w-4 h-4 text-brand opacity-80" />
@@ -192,7 +192,7 @@ export default function MetricsBand() {
           </div>
 
           {/* Stat 4 */}
-          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
+          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:shadow-card transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-4">
               <ShieldCheck className="w-4 h-4 text-brand opacity-80" />

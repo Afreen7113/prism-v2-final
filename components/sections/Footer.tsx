@@ -216,7 +216,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom decorative radial gradient orb */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] rounded-full bg-[radial-gradient(circle,var(--prism-primary-glow)_0%,transparent_70%)] opacity-25 pointer-events-none blur-[100px] z-0" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] rounded-full bg-[radial-gradient(circle,var(--prism-primary-glow)_0%,transparent_70%)] opacity-10 pointer-events-none blur-[60px] z-0" />
 
     </footer>
   );

@@ -12,7 +12,7 @@ const componentBlocks = [
     title: "Charts",
     description: "Line, bar, pie & more",
     color: "text-brand",
-    iconBg: "bg-brand/10 border-brand/20",
+    iconBg: "bg-[var(--semantic-primary-10)] border-[var(--semantic-primary-20)]",
     href: "/components/charts",
   },
   {
@@ -20,7 +20,7 @@ const componentBlocks = [
     title: "Tables",
     description: "Sortable & filterable",
     color: "text-brand",
-    iconBg: "bg-brand/10 border-brand/20",
+    iconBg: "bg-[var(--semantic-primary-10)] border-[var(--semantic-primary-20)]",
     href: "/components/tables",
   },
   {
@@ -28,7 +28,7 @@ const componentBlocks = [
     title: "Filters",
     description: "Advanced controls",
     color: "text-brand",
-    iconBg: "bg-brand/10 border-brand/20",
+    iconBg: "bg-[var(--semantic-primary-10)] border-[var(--semantic-primary-20)]",
     href: "/components/filters",
   },
   {
@@ -36,23 +36,23 @@ const componentBlocks = [
     title: "Date Picker",
     description: "Time range selector",
     color: "text-brand",
-    iconBg: "bg-brand/10 border-brand/20",
+    iconBg: "bg-[var(--semantic-primary-10)] border-[var(--semantic-primary-20)]",
     href: "/components/date-picker",
   },
   {
     icon: FileDown,
     title: "Exports",
     description: "CSV, PDF, API",
-    color: "text-status-success",
-    iconBg: "bg-status-success/10 border-emerald-500/20",
+    color: "text-[var(--semantic-accent)]",
+    iconBg: "bg-[var(--semantic-accent-10)] border-[var(--semantic-accent-20)]",
     href: "/components/exports",
   },
   {
     icon: Layers,
     title: "KPI Cards",
     description: "Metrics at a glance",
-    color: "text-status-warning",
-    iconBg: "bg-status-warning/10 border-amber-500/20",
+    color: "text-[var(--semantic-accent)]",
+    iconBg: "bg-[var(--semantic-accent-10)] border-[var(--semantic-accent-20)]",
     href: "/components/kpi-cards",
   },
 ];
@@ -117,7 +117,7 @@ export default function ComponentsSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.5, delay: idx * 0.05 }}
-                    className="bg-bg-elevated/20 backdrop-blur-sm rounded-2xl p-5 border border-border-subtle shadow-card flex flex-col items-center text-center group cursor-pointer hover:border-border-default hover:shadow-card transition-all duration-300"
+                    className="bg-bg-elevated/20 rounded-2xl p-5 border border-border-subtle shadow-card flex flex-col items-center text-center group cursor-pointer hover:border-border-default hover:shadow-card transition-all duration-300"
                   >
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 border ${block.iconBg} ${block.color}`}>
                       <Icon className="w-6 h-6" />

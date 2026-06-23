@@ -3,6 +3,28 @@
 import React, { type ReactNode, useState } from 'react';
 import { ShieldCheck, CheckCircle2, Heart, DollarSign, ShoppingBag, Zap, ChevronDown, ChevronUp, Code2, ArrowRight, ArrowDown, Palette, Layers, LayoutDashboard } from 'lucide-react';
 import PrismDashboard from '@/components/PrismDashboard';
+import { presets } from '@/providers/ThemeProvider';
+
+const getPresetStyles = (presetId: string) => {
+  const p = presets[presetId];
+  if (!p) return {};
+
+  return {
+    '--semantic-primary': p.primaryColor,
+    '--semantic-primary-10': `color-mix(in srgb, ${p.primaryColor} 10%, transparent)`,
+    '--semantic-primary-20': `color-mix(in srgb, ${p.primaryColor} 20%, transparent)`,
+    '--semantic-primary-50': `color-mix(in srgb, ${p.primaryColor} 50%, transparent)`,
+    '--semantic-accent': p.accentColor,
+    '--semantic-surface': p.surfaceColor,
+    '--semantic-bg': p.bgColor,
+    '--semantic-elevated': p.elevatedColor,
+    '--semantic-border': p.borderColor,
+    '--semantic-text-primary': p.textPrimary,
+    '--semantic-text-secondary': p.textSecondary,
+    '--semantic-text-muted': p.textMuted,
+    '--prism-chart-primary': p.primaryColor,
+  } as React.CSSProperties;
+};
 
 interface BrandCard {
   icon: ReactNode;
@@ -19,108 +41,112 @@ interface BrandCard {
   visualization: ReactNode;
 }
 
-const brands: BrandCard[] = [
+const brands: (BrandCard & { presetId: string })[] = [
   {
-    icon: <Heart className="w-4 h-4 text-sky-600 dark:text-sky-400" />,
+    presetId: 'healthcare',
+    icon: <Heart className="w-4 h-4 text-[var(--semantic-primary)]" />,
     brand: 'MedDash Analytics',
     badge: 'MEDICAL',
-    bg: 'bg-gradient-to-br from-sky-50/50 to-white dark:from-sky-950/30 dark:to-bg-surface border-sky-200/50 dark:border-sky-800/40 hover:border-sky-400/60 dark:hover:border-sky-500/50',
-    text: 'text-slate-900 dark:text-white',
-    primary: 'var(--color-sky-600)',
-    badgeClassName: 'bg-sky-100/80 dark:bg-sky-900/40 text-sky-800 dark:text-sky-300 border border-sky-200/60 dark:border-sky-800/60',
-    dividerClassName: 'border-sky-200/60 dark:border-sky-800/40',
-    mutedClassName: 'text-sky-800 dark:text-sky-300',
+    bg: 'bg-[var(--semantic-bg)] bg-gradient-to-br from-[var(--semantic-primary-10)] to-transparent border-[var(--semantic-border)] hover:border-[var(--semantic-primary-50)]',
+    text: 'text-[var(--semantic-text-primary)]',
+    primary: 'var(--semantic-primary)',
+    badgeClassName: 'bg-[var(--semantic-primary-10)] text-[var(--semantic-primary)] border border-[var(--semantic-primary-20)]',
+    dividerClassName: 'border-[var(--semantic-border)]',
+    mutedClassName: 'text-[var(--semantic-text-secondary)]',
     kpis: [
       { label: 'Admissions', value: '12,847' },
       { label: 'Avg Stay', value: '4.2 days' },
     ],
     button: {
       label: 'View Report',
-      className: 'bg-sky-600 hover:bg-sky-700 text-white shadow-sm',
+      className: 'bg-[var(--semantic-primary)] text-white shadow-sm',
     },
     visualization: (
       <div className="w-full h-8">
-        <svg viewBox="0 0 100 30" className="w-full h-full overflow-visible stroke-sky-500 fill-none stroke-[3]">
+        <svg viewBox="0 0 100 30" className="w-full h-full overflow-visible stroke-[var(--semantic-primary)] fill-none stroke-[3]">
           <path d="M0,25 Q15,25 30,15 T60,20 T80,5 T100,0" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </div>
     )
   },
   {
-    icon: <DollarSign className="w-4 h-4 text-amber-600 dark:text-amber-400" />,
+    presetId: 'fintech',
+    icon: <DollarSign className="w-4 h-4 text-[var(--semantic-primary)]" />,
     brand: 'Vault Finance',
     badge: 'FINTECH',
-    bg: 'bg-gradient-to-br from-amber-50/50 to-white dark:from-amber-950/30 dark:to-bg-surface border-amber-200/50 dark:border-amber-800/40 hover:border-amber-400/60 dark:hover:border-amber-500/50',
-    text: 'text-slate-900 dark:text-white',
-    primary: 'var(--color-amber-500)',
-    badgeClassName: 'bg-amber-100/80 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/60',
-    dividerClassName: 'border-amber-200/60 dark:border-amber-800/40',
-    mutedClassName: 'text-amber-800 dark:text-amber-300',
+    bg: 'bg-[var(--semantic-bg)] bg-gradient-to-br from-[var(--semantic-primary-10)] to-transparent border-[var(--semantic-border)] hover:border-[var(--semantic-primary-50)]',
+    text: 'text-[var(--semantic-text-primary)]',
+    primary: 'var(--semantic-primary)',
+    badgeClassName: 'bg-[var(--semantic-primary-10)] text-[var(--semantic-primary)] border border-[var(--semantic-primary-20)]',
+    dividerClassName: 'border-[var(--semantic-border)]',
+    mutedClassName: 'text-[var(--semantic-text-secondary)]',
     kpis: [
       { label: 'Portfolio', value: '$4.8M' },
       { label: 'ROI', value: '+23.5%' },
     ],
     button: {
       label: 'Trade Now',
-      className: 'bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold shadow-sm',
+      className: 'bg-[var(--semantic-primary)] text-white font-bold shadow-sm',
     },
     visualization: (
       <div className="flex items-end gap-[2px] h-8 w-full justify-between">
         {[30, 45, 25, 60, 85, 50, 95, 70, 85].map((h, i) => (
-           <div key={i} className="flex-1 bg-amber-500 rounded-t-[2px] transition-all hover:bg-amber-400" style={{ height: `${h}%` }} />
+           <div key={i} className="flex-1 bg-[var(--semantic-primary)] rounded-t-[2px] transition-all hover:opacity-80" style={{ height: `${h}%` }} />
         ))}
       </div>
     )
   },
   {
-    icon: <ShoppingBag className="w-4 h-4 text-orange-600 dark:text-orange-400" />,
+    presetId: 'consumer',
+    icon: <ShoppingBag className="w-4 h-4 text-[var(--semantic-primary)]" />,
     brand: 'Stitch Style',
     badge: 'CONSUMER',
-    bg: 'bg-gradient-to-br from-orange-50/50 to-white dark:from-orange-950/30 dark:to-bg-surface border-orange-200/50 dark:border-orange-800/40 hover:border-orange-400/60 dark:hover:border-orange-500/50',
-    text: 'text-slate-900 dark:text-white',
-    primary: 'var(--color-orange-500)',
-    badgeClassName: 'bg-orange-100/80 dark:bg-orange-900/40 text-orange-800 dark:text-orange-300 border border-orange-200/60 dark:border-orange-800/60',
-    dividerClassName: 'border-orange-200/60 dark:border-orange-800/40',
-    mutedClassName: 'text-orange-800 dark:text-orange-300',
+    bg: 'bg-[var(--semantic-bg)] bg-gradient-to-br from-[var(--semantic-primary-10)] to-transparent border-[var(--semantic-border)] hover:border-[var(--semantic-primary-50)]',
+    text: 'text-[var(--semantic-text-primary)]',
+    primary: 'var(--semantic-primary)',
+    badgeClassName: 'bg-[var(--semantic-primary-10)] text-[var(--semantic-primary)] border border-[var(--semantic-primary-20)]',
+    dividerClassName: 'border-[var(--semantic-border)]',
+    mutedClassName: 'text-[var(--semantic-text-secondary)]',
     kpis: [
       { label: 'Orders', value: '1,247' },
       { label: 'Conversion', value: '3.4%' },
     ],
     button: {
       label: 'Shop Now',
-      className: 'bg-orange-600 hover:bg-orange-700 text-white font-bold shadow-sm',
+      className: 'bg-[var(--semantic-primary)] text-white font-bold shadow-sm',
     },
     visualization: (
       <div className="w-full h-8 relative">
-        <div className="absolute inset-0 bg-gradient-to-t from-orange-500/20 to-transparent rounded-b-md" />
-        <svg viewBox="0 0 100 30" className="w-full h-full overflow-visible stroke-orange-500 fill-none stroke-[3] relative z-10">
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--semantic-primary-20)] to-transparent rounded-b-md" />
+        <svg viewBox="0 0 100 30" className="w-full h-full overflow-visible stroke-[var(--semantic-primary)] fill-none stroke-[3] relative z-10">
           <path d="M0,25 L20,15 L40,20 L60,5 L80,10 L100,0" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </div>
     )
   },
   {
-    icon: <Zap className="w-4 h-4 text-emerald-400" />,
+    presetId: 'developer',
+    icon: <Zap className="w-4 h-4 text-[var(--semantic-primary)]" />,
     brand: 'DevOps Cloud',
     badge: 'DEVELOPER',
-    bg: 'bg-[#0B1121] bg-gradient-to-br from-slate-900 to-[#0B1121] border-slate-800 shadow-card hover:border-emerald-500/50',
-    text: 'text-white',
-    primary: 'var(--color-emerald-500)',
-    badgeClassName: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
-    dividerClassName: 'border-slate-800/80',
-    mutedClassName: 'text-slate-400',
+    bg: 'bg-[var(--semantic-bg)] bg-gradient-to-br from-[var(--semantic-surface)] to-transparent border-[var(--semantic-border)] shadow-card hover:border-[var(--semantic-primary-50)]',
+    text: 'text-[var(--semantic-text-primary)]',
+    primary: 'var(--semantic-primary)',
+    badgeClassName: 'bg-[var(--semantic-primary-10)] text-[var(--semantic-primary)] border border-[var(--semantic-primary-20)]',
+    dividerClassName: 'border-[var(--semantic-border)]',
+    mutedClassName: 'text-[var(--semantic-text-muted)]',
     kpis: [
       { label: 'Deploys', value: '4,521' },
       { label: 'Uptime', value: '99.99%' },
     ],
     button: {
       label: 'Deploy',
-      className: 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono font-bold shadow-[0_0_10px_rgba(16,185,129,0.2)]',
+      className: 'bg-[var(--semantic-primary)] text-white font-mono font-bold shadow-sm',
     },
     visualization: (
       <div className="grid grid-cols-6 gap-[2px] h-8 content-end w-full">
          {[...Array(12)].map((_, i) => (
-           <div key={i} className={`h-[5px] rounded-[1px] ${[1, 5, 8, 10].includes(i) ? 'bg-emerald-500/20' : 'bg-emerald-500'}`} />
+           <div key={i} className={`h-[5px] rounded-[1px] ${[1, 5, 8, 10].includes(i) ? 'bg-[var(--semantic-primary-20)]' : 'bg-[var(--semantic-primary)]'}`} />
          ))}
       </div>
     )
@@ -134,7 +160,7 @@ export default function TokenArchitecture() {
     <section id="white-label-architecture" className="relative py-24 md:py-32 overflow-hidden bg-bg-surface border-y border-border-subtle">
       {/* Background patterns */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-border-subtle)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border-subtle)_1px,transparent_1px)] bg-[size:64px_64px] opacity-[0.03]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--semantic-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--semantic-border)_1px,transparent_1px)] bg-[size:64px_64px] opacity-[0.03]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
@@ -163,16 +189,16 @@ export default function TokenArchitecture() {
           <div className="flex justify-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-[1000px] w-full mx-auto">
               {brands.map((b, i) => (
-                <div key={i} className={`p-6 rounded-[20px] border ${b.bg} flex flex-col justify-between shadow-sm relative overflow-hidden group transition-all duration-250 hover:opacity-[0.98] hover:shadow-card h-[220px] w-full max-w-[480px] mx-auto`}>
+                <div key={i} className={`p-6 rounded-[20px] border ${b.bg} flex flex-col justify-between shadow-sm relative overflow-hidden group transition-all duration-250 hover:opacity-[0.98] hover:shadow-card h-[220px] w-full max-w-[480px] mx-auto`} style={getPresetStyles(b.presetId)}>
                   
                   {/* Card Header */}
                   <div className="flex justify-between items-start relative z-10">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/40 dark:bg-black/40 backdrop-blur-md shadow-sm border border-black/5 dark:border-white/5 ring-1 ring-white/20 dark:ring-white/10 shrink-0">
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/40 dark:bg-black/40 shadow-sm border border-black/5 dark:border-white/5 ring-1 ring-white/20 dark:ring-white/10 shrink-0">
                         {b.icon}
                       </div>
                       <div className="flex flex-col">
-                        <span className={`text-[8px] font-[800] tracking-widest ${b.badgeClassName} px-2 py-0.5 rounded-full uppercase shadow-sm backdrop-blur-sm self-start mb-0.5 leading-none`}>{b.badge}</span>
+                        <span className={`text-[8px] font-[800] tracking-widest ${b.badgeClassName} px-2 py-0.5 rounded-full uppercase shadow-sm self-start mb-0.5 leading-none`}>{b.badge}</span>
                         <h4 className={`text-base font-[700] ${b.text} tracking-tight leading-none mt-0.5`}>{b.brand}</h4>
                       </div>
                     </div>
@@ -222,11 +248,11 @@ export default function TokenArchitecture() {
                 
                 {/* Node 1 */}
                 <div className="w-full md:w-1/4 bg-bg-elevated border border-border-subtle p-4 rounded-xl flex flex-col items-center text-center shadow-sm relative z-10 hover:border-text-muted transition-colors">
-                  <div className="bg-sky-500/10 text-sky-500 w-10 h-10 rounded-full flex items-center justify-center mb-3">
+                  <div className="bg-[var(--semantic-primary-10)] text-[var(--semantic-primary)] w-10 h-10 rounded-full flex items-center justify-center mb-3">
                     <Palette className="w-5 h-5" />
                   </div>
                   <h4 className="font-bold text-text-primary text-sm mb-1">Primitive Tokens</h4>
-                  <p className="text-[10px] text-text-secondary font-mono bg-text-primary/5 px-1.5 py-0.5 rounded">--color-sky-600</p>
+                  <p className="text-[10px] text-text-secondary font-mono bg-text-primary/5 px-1.5 py-0.5 rounded">--semantic-primary</p>
                 </div>
                 
                 {/* Arrow 1 */}
@@ -256,7 +282,7 @@ export default function TokenArchitecture() {
 
                 {/* Node 3 */}
                 <div className="w-full md:w-1/4 bg-bg-elevated border border-border-subtle p-4 rounded-xl flex flex-col items-center text-center shadow-sm relative z-10 hover:border-text-muted transition-colors">
-                  <div className="bg-emerald-500/10 text-emerald-500 w-10 h-10 rounded-full flex items-center justify-center mb-3">
+                  <div className="bg-[var(--semantic-primary-10)] text-[var(--semantic-primary)] w-10 h-10 rounded-full flex items-center justify-center mb-3">
                     <Code2 className="w-5 h-5" />
                   </div>
                   <h4 className="font-bold text-text-primary text-sm mb-1">Component Tokens</h4>
@@ -301,23 +327,14 @@ export default function TokenArchitecture() {
               
               {/* Token Overrides - Left (Medical/Blue) */}
               <div 
-                className="rounded-2xl overflow-hidden border border-slate-200 shadow-card bg-white flex flex-col h-full"
-                style={{ 
-                  "--color-brand": "#0284c7", 
-                  "--color-bg-base": "#f0f9ff", 
-                  "--color-bg-surface": "#ffffff",
-                  "--color-bg-elevated": "#e0f2fe",
-                  "--color-text-primary": "#0c4a6e", 
-                  "--color-text-secondary": "#0369a1", 
-                  "--color-border-subtle": "#bae6fd", 
-                  "--prism-chart-primary": "#0284c7",
-                } as React.CSSProperties}
+                className="rounded-2xl overflow-hidden border border-[var(--semantic-border)] shadow-xl bg-[var(--semantic-bg)] flex flex-col h-full"
+                style={getPresetStyles("healthcare")}
               >
-                <div className="bg-sky-600 px-5 py-3 flex items-center justify-between border-b border-sky-700 shrink-0">
+                <div className="bg-[var(--semantic-primary)] px-5 py-3 flex items-center justify-between border-b border-[var(--semantic-border)] shrink-0">
                   <span className="text-xs font-bold text-white uppercase tracking-wider">Medical Theme</span>
-                  <span className="text-[10px] font-mono text-sky-200">Token Set A</span>
+                  <span className="text-[10px] font-mono text-[var(--semantic-bg)]">Token Set A</span>
                 </div>
-                <div className="flex-1 w-full bg-[#f0f9ff] p-4 lg:p-6 overflow-hidden">
+                <div className="flex-1 w-full bg-[var(--semantic-bg)] p-4 lg:p-6 overflow-hidden">
                   <PrismDashboard 
                     theme="medical"
                     title="Platform Analytics" 
@@ -334,23 +351,14 @@ export default function TokenArchitecture() {
 
               {/* Token Overrides - Right (Fintech/Green) */}
               <div 
-                className="rounded-2xl overflow-hidden border border-emerald-800 shadow-card bg-emerald-950 flex flex-col h-full"
-                style={{ 
-                  "--color-brand": "#10b981", 
-                  "--color-bg-base": "#022c22", 
-                  "--color-bg-surface": "#064e3b", 
-                  "--color-bg-elevated": "#065f46", 
-                  "--color-text-primary": "#ecfdf5", 
-                  "--color-text-secondary": "#6ee7b7", 
-                  "--color-border-subtle": "#047857", 
-                  "--prism-chart-primary": "#10b981",
-                } as React.CSSProperties}
+                className="rounded-2xl overflow-hidden border border-[var(--semantic-border)] shadow-card bg-[var(--semantic-bg)] flex flex-col h-full"
+                style={getPresetStyles("fintech")}
               >
-                <div className="bg-emerald-500 px-5 py-3 flex items-center justify-between border-b border-emerald-600 shrink-0">
-                  <span className="text-xs font-bold text-emerald-950 uppercase tracking-wider">Fintech Theme</span>
-                  <span className="text-[10px] font-mono text-emerald-900">Token Set B</span>
+                <div className="bg-[var(--semantic-primary)] px-5 py-3 flex items-center justify-between border-b border-[var(--semantic-border)] shrink-0">
+                  <span className="text-xs font-bold text-[var(--semantic-bg)] uppercase tracking-wider">Fintech Theme</span>
+                  <span className="text-[10px] font-mono text-[var(--semantic-surface)]">Token Set B</span>
                 </div>
-                <div className="flex-1 w-full bg-[#022c22] p-4 lg:p-6 overflow-hidden">
+                <div className="flex-1 w-full bg-[var(--semantic-bg)] p-4 lg:p-6 overflow-hidden">
                   <PrismDashboard 
                     theme="fintech"
                     title="Platform Analytics" 
@@ -372,20 +380,20 @@ export default function TokenArchitecture() {
           {/* ROW 3: Architecture Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[1000px] mx-auto w-full">
             <div className="bg-bg-elevated border border-border-subtle rounded-xl p-6 text-center shadow-sm flex flex-col items-center justify-center aspect-video md:aspect-auto h-[120px]">
-              <div className="text-3xl font-bold text-text-primary mb-1">50+</div>
-              <div className="text-[10px] sm:text-xs font-bold text-text-muted uppercase tracking-wider">Primitive Tokens</div>
+              <div className="text-3xl font-bold text-[var(--semantic-text-primary)] mb-1">50+</div>
+              <div className="text-[10px] sm:text-xs font-bold text-[var(--semantic-text-muted)] uppercase tracking-wider">Primitive Tokens</div>
             </div>
             <div className="bg-bg-elevated border border-border-subtle rounded-xl p-6 text-center shadow-sm flex flex-col items-center justify-center aspect-video md:aspect-auto h-[120px]">
-              <div className="text-3xl font-bold text-text-primary mb-1">120+</div>
-              <div className="text-[10px] sm:text-xs font-bold text-text-muted uppercase tracking-wider">Semantic Tokens</div>
+              <div className="text-3xl font-bold text-[var(--semantic-text-primary)] mb-1">120+</div>
+              <div className="text-[10px] sm:text-xs font-bold text-[var(--semantic-text-muted)] uppercase tracking-wider">Semantic Tokens</div>
             </div>
             <div className="bg-bg-elevated border border-border-subtle rounded-xl p-6 text-center shadow-sm flex flex-col items-center justify-center aspect-video md:aspect-auto h-[120px]">
-              <div className="text-3xl font-bold text-brand mb-1">300+</div>
-              <div className="text-[10px] sm:text-xs font-bold text-brand/70 uppercase tracking-wider">Component Tokens</div>
+              <div className="text-3xl font-bold text-[var(--semantic-text-primary)] mb-1">300+</div>
+              <div className="text-[10px] sm:text-xs font-bold text-[var(--semantic-text-muted)] uppercase tracking-wider">Component Tokens</div>
             </div>
             <div className="bg-bg-elevated border border-border-subtle rounded-xl p-6 text-center shadow-sm flex flex-col items-center justify-center aspect-video md:aspect-auto h-[120px]">
-              <div className="text-3xl font-bold text-brand mb-1">100%</div>
-              <div className="text-[10px] sm:text-xs font-bold text-brand/70 uppercase tracking-wider">UI Adaptation</div>
+              <div className="text-3xl font-bold text-[var(--semantic-text-primary)] mb-1">100%</div>
+              <div className="text-[10px] sm:text-xs font-bold text-[var(--semantic-text-muted)] uppercase tracking-wider">UI Adaptation</div>
             </div>
           </div>
 

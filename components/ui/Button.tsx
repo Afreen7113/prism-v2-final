@@ -26,7 +26,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'disabled:opacity-50 disabled:cursor-not-allowed',
           // Variants
           {
-            'bg-brand text-text-on-primary hover:bg-[var(--color-primary-hover)] hover:shadow-lg hover:-translate-y-0.5 border border-transparent': variant === 'primary',
+            'bg-brand text-text-on-primary hover:bg-[var(--color-primary-hover)] hover:shadow-lg border border-transparent': variant === 'primary',
             'bg-bg-elevated text-text-primary border border-border-subtle hover-semantic-button': variant === 'secondary',
             'bg-transparent text-text-primary border border-border-subtle hover-semantic-surface': variant === 'outline',
             'bg-transparent text-text-secondary border border-transparent hover-semantic-button': variant === 'ghost',

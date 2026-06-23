@@ -124,7 +124,7 @@ export const AVAILABLE_PRESETS = [
   { id: "healthcare", label: "Medical", color: "bg-info" },
   { id: "fintech", label: "Fintech", color: "bg-status-success" },
   { id: "consumer", label: "Retail", color: "bg-[var(--color-accent)]" },
-  { id: "developer", label: "Console", color: "bg-[#C86F4A]" },
+  { id: "developer", label: "Console", color: `bg-[${presets["developer"]?.primaryColor}]` },
 ];
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -136,7 +136,13 @@ const applyThemeToDOM = (theme: ThemeState) => {
   root.setAttribute("data-theme", theme.themeMode);
 
   root.style.setProperty("--semantic-primary", theme.primaryColor);
+  root.style.setProperty("--semantic-primary-10", `color-mix(in srgb, ${theme.primaryColor} 10%, transparent)`);
+  root.style.setProperty("--semantic-primary-20", `color-mix(in srgb, ${theme.primaryColor} 20%, transparent)`);
+  
   root.style.setProperty("--semantic-accent", theme.accentColor);
+  root.style.setProperty("--semantic-accent-10", `color-mix(in srgb, ${theme.accentColor} 10%, transparent)`);
+  root.style.setProperty("--semantic-accent-20", `color-mix(in srgb, ${theme.accentColor} 20%, transparent)`);
+  
   root.style.setProperty("--semantic-bg", theme.bgColor);
   root.style.setProperty("--semantic-surface", theme.surfaceColor);
   root.style.setProperty("--semantic-elevated", theme.elevatedColor);

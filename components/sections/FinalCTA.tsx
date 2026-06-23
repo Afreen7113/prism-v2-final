@@ -29,7 +29,7 @@ export default function FinalCTA() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,var(--semantic-primary-glow)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
+        className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,var(--semantic-primary-glow)_0%,transparent_70%)] pointer-events-none blur-[60px] opacity-40 z-0"
       />
 
 
@@ -43,7 +43,7 @@ export default function FinalCTA() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.2)_0%,transparent_70%)] pointer-events-none blur-[120px] z-0"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.2)_0%,transparent_70%)] pointer-events-none blur-[60px] opacity-30 z-0"
       />
 
       {/* Layer 2 - Subtle Grid overlay with radial mask */}

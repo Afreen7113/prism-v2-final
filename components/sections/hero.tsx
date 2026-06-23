@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, LayoutDashboard, Users, CreditCard, Settings, ChevronRight, Activity, Bell, Search } from "lucide-react";
-import { AVAILABLE_PRESETS } from "@/providers/ThemeProvider";
+import { AVAILABLE_PRESETS, presets } from "@/providers/ThemeProvider";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import RevealText from "@/components/ui/RevealText";
@@ -13,65 +13,36 @@ type ShowcaseTheme = {
   tokens: React.CSSProperties;
 };
 
-const showcaseThemes: ShowcaseTheme[] = [
-  {
-    id: "medical",
-    name: "Medical",
+const showcaseThemes: ShowcaseTheme[] = AVAILABLE_PRESETS.slice(0, 3).map((p) => {
+  const t = presets[p.id];
+  
+  return {
+    id: p.id,
+    name: p.label,
     tokens: {
-      "--color-primary": "#0284C7",
-      "--color-accent": "#0F766E",
-      "--color-bg-base": "#F8FAFC",
-      "--color-bg-surface": "#FFFFFF",
-      "--color-bg-elevated": "#F1F5F9",
-      "--color-text-primary": "#0F172A",
-      "--color-text-secondary": "#475569",
-      "--color-text-muted": "#64748B",
-      "--color-border-subtle": "#E2E8F0",
-      "--color-border-default": "#CBD5E1",
-      "--color-success": "#10B981",
-      "--color-warning": "#F59E0B",
+      "--color-primary": t.primaryColor,
+      "--color-primary-8": `color-mix(in srgb, ${t.primaryColor} 8%, transparent)`,
+      "--color-primary-30": `color-mix(in srgb, ${t.primaryColor} 30%, transparent)`,
+      "--color-primary-5": `color-mix(in srgb, ${t.primaryColor} 5%, transparent)`,
+      "--color-accent": t.accentColor,
+      "--color-bg-base": t.bgColor,
+      "--color-bg-surface": t.surfaceColor,
+      "--color-bg-elevated": t.elevatedColor,
+      "--color-text-primary": t.textPrimary,
+      "--color-text-secondary": t.textSecondary,
+      "--color-text-muted": t.textMuted,
+      "--semantic-text-primary": t.textPrimary,
+      "--semantic-text-secondary": t.textSecondary,
+      "--semantic-text-muted": t.textMuted,
+      "--semantic-border": t.borderColor,
+      "--color-border-subtle": t.borderColor,
+      "--color-border-default": t.borderColor,
+      "--color-success": presets["fintech"]?.primaryColor as string,
+      "--color-warning": presets["fintech"]?.accentColor as string,
       "--semantic-text-on-primary": "#FFFFFF",
-    } as React.CSSProperties,
-  },
-  {
-    id: "fintech",
-    name: "Fintech",
-    tokens: {
-      "--color-primary": "#059669",
-      "--color-accent": "#EAB308",
-      "--color-bg-base": "#0B0F19",
-      "--color-bg-surface": "#111827",
-      "--color-bg-elevated": "#1F2937",
-      "--color-text-primary": "#F8FAFC",
-      "--color-text-secondary": "#94A3B8",
-      "--color-text-muted": "#64748B",
-      "--color-border-subtle": "#1E293B",
-      "--color-border-default": "#334155",
-      "--color-success": "#10B981",
-      "--color-warning": "#EAB308",
-      "--semantic-text-on-primary": "#FFFFFF",
-    } as React.CSSProperties,
-  },
-  {
-    id: "retail",
-    name: "Retail",
-    tokens: {
-      "--color-primary": "#1F2937",
-      "--color-accent": "#D4A017",
-      "--color-bg-base": "#F3F4F6",
-      "--color-bg-surface": "#FFFFFF",
-      "--color-bg-elevated": "#F9FAFB",
-      "--color-text-primary": "#111827",
-      "--color-text-secondary": "#4B5563",
-      "--color-text-muted": "#9CA3AF",
-      "--color-border-subtle": "#E5E7EB",
-      "--color-border-default": "#D1D5DB",
-      "--color-success": "#10B981",
-      "--color-warning": "#F59E0B",
-      "--semantic-text-on-primary": "#FFFFFF",
-    } as React.CSSProperties,
-  }
-];
+    } as React.CSSProperties
+  };
+});
 
 export default function Hero() {
   const [activeThemeIndex, setActiveThemeIndex] = useState(0);
@@ -107,7 +78,7 @@ export default function Hero() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,var(--prism-primary-glow)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
+        className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,var(--prism-primary-glow)_0%,transparent_70%)] pointer-events-none blur-[60px] opacity-60 z-0"
       />
       <motion.div
         animate={{
@@ -119,7 +90,7 @@ export default function Hero() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,var(--prism-border-glow)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
+        className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,var(--prism-border-glow)_0%,transparent_70%)] pointer-events-none blur-[60px] opacity-40 z-0"
       />
 
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
@@ -161,7 +132,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.32, 0.72, 0, 1] as const }}
-            className="text-text-secondary text-base md:text-lg max-w-xl leading-relaxed mb-6"
+            className="text-[var(--semantic-text-secondary)] text-base md:text-lg max-w-xl leading-relaxed mb-6"
           >
             Drop a React component. Pass a token file. Done. Prism renders inside your product, adapting to every customer brand without component rewrites.
           </motion.p>
@@ -170,7 +141,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35, ease: [0.32, 0.72, 0, 1] as const }}
-            className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-text-muted mb-8 uppercase"
+            className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-[var(--semantic-text-muted)] mb-8 uppercase"
           >
             <span>One Platform</span>
             <span className="w-1 h-1 rounded-full bg-border-default" />
@@ -186,7 +157,7 @@ export default function Hero() {
           >
             <Link
               href="#api"
-              className="group relative inline-flex items-center gap-2 px-8 py-3.5 font-bold text-text-on-primary rounded-lg bg-brand shadow-xl shadow-brand/20 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand/30 active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[52px]"
+              className="group relative inline-flex items-center gap-2 px-8 py-3.5 font-bold text-text-on-primary rounded-lg bg-brand shadow-md shadow-brand/20 hover:shadow-lg hover:shadow-brand/30 active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[52px]"
             >
               <motion.span
                 initial={{ x: "-150%" }}
@@ -206,7 +177,7 @@ export default function Hero() {
 
             <Link
               href="#demo"
-              className="glass group inline-flex items-center justify-center px-6 py-3.5 font-medium text-text-brand rounded-lg border border-border-subtle/50 hover:border-brand/30 hover:bg-brand/5 transition-all duration-300 min-h-[52px]"
+              className="glass group inline-flex items-center justify-center px-6 py-3.5 font-medium text-text-brand rounded-lg border border-[var(--semantic-border)]/50 hover:border-[var(--color-primary-30)] hover:bg-[var(--color-primary-5)] transition-all duration-300 min-h-[52px]"
             >
               See it in your brand
             </Link>
@@ -217,7 +188,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5, ease: [0.32, 0.72, 0, 1] as const }}
-            className="text-xs font-medium text-text-secondary mt-1"
+            className="text-xs font-medium text-[var(--semantic-text-secondary)] mt-1"
           >
             Drop a React component. Pass a token file. Done.
           </motion.div>
@@ -230,7 +201,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-[10px] font-semibold tracking-wider text-text-muted uppercase mb-3"
+            className="text-[10px] font-semibold tracking-wider text-[var(--semantic-text-muted)] uppercase mb-3"
           >
             LIVE BRAND THEME PREVIEW
           </motion.span>
@@ -240,7 +211,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="flex items-center gap-2 mb-2 bg-bg-surface border border-border-subtle rounded-full p-1.5 shadow-sm"
+            className="flex items-center gap-2 mb-2 bg-bg-surface border border-[var(--semantic-border)] rounded-full p-1.5 shadow-sm"
           >
             {showcaseThemes.map((theme, index) => (
               <button
@@ -249,7 +220,7 @@ export default function Hero() {
                 className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ${
                   activeThemeIndex === index 
                     ? "bg-brand text-white shadow-md scale-105" 
-                    : "text-text-secondary hover:text-text-primary hover:bg-bg-elevated"
+                    : "text-[var(--semantic-text-secondary)] hover:text-[var(--semantic-text-primary)] hover:bg-bg-elevated"
                 }`}
               >
                 {theme.name}
@@ -261,7 +232,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="text-[10px] text-text-secondary mb-6 block"
+            className="text-[10px] text-[var(--semantic-text-secondary)] mb-6 block"
           >
             + {hiddenPresetsCount} additional preset{hiddenPresetsCount !== 1 ? 's' : ''} available in Theme Playground
           </motion.span>
@@ -272,24 +243,24 @@ export default function Hero() {
             transition={{ duration: 0.4, ease: "easeInOut" }}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
-            className="w-full max-w-[580px] h-[420px] sm:h-[480px] rounded-lg border border-border-subtle shadow-sm flex overflow-hidden bg-bg-base font-sans transform-gpu hover:scale-[1.01] transition-transform duration-500"
+            className="w-full max-w-[580px] h-[420px] sm:h-[480px] rounded-lg border border-[var(--semantic-border)] shadow-sm flex overflow-hidden bg-bg-base font-sans transform-gpu hover:scale-[1.01] transition-transform duration-500"
           >
             {/* Sidebar */}
-            <div className="w-[40px] md:w-[52px] h-full flex flex-col items-center py-3 border-r border-border-subtle bg-bg-surface shrink-0">
+            <div className="w-[40px] md:w-[52px] h-full flex flex-col items-center py-3 border-r border-[var(--semantic-border)] bg-bg-surface shrink-0">
               <div className="w-5 h-5 rounded-md bg-brand flex items-center justify-center shadow-glow-primary mb-5 transition-colors duration-500">
                 <Activity className="w-3.5 h-3.5 text-white" />
               </div>
               <div className="flex flex-col gap-3">
-                <div className="p-1 rounded-md bg-brand/10 text-brand transition-colors duration-500">
+                <div className="p-1 rounded-md bg-[var(--color-primary-8)] text-brand transition-colors duration-500">
                   <LayoutDashboard className="w-3.5 h-3.5" />
                 </div>
-                <div className="p-1 text-text-muted hover:text-text-primary transition-colors cursor-pointer">
+                <div className="p-1 text-[var(--semantic-text-muted)] hover:text-[var(--semantic-text-primary)] transition-colors cursor-pointer">
                   <Users className="w-3.5 h-3.5" />
                 </div>
-                <div className="p-1 text-text-muted hover:text-text-primary transition-colors cursor-pointer">
+                <div className="p-1 text-[var(--semantic-text-muted)] hover:text-[var(--semantic-text-primary)] transition-colors cursor-pointer">
                   <CreditCard className="w-3.5 h-3.5" />
                 </div>
-                <div className="p-1 text-text-muted hover:text-text-primary transition-colors cursor-pointer">
+                <div className="p-1 text-[var(--semantic-text-muted)] hover:text-[var(--semantic-text-primary)] transition-colors cursor-pointer">
                   <Settings className="w-3.5 h-3.5" />
                 </div>
               </div>
@@ -298,20 +269,20 @@ export default function Hero() {
             {/* Main Content Area */}
             <div className="flex-1 flex flex-col min-w-0 bg-bg-base transition-colors duration-500">
               {/* Header */}
-              <div className="h-10 px-3 md:px-5 border-b border-border-subtle flex items-center justify-between bg-bg-surface shrink-0 transition-colors duration-500">
+              <div className="h-10 px-3 md:px-5 border-b border-[var(--semantic-border)] flex items-center justify-between bg-bg-surface shrink-0 transition-colors duration-500">
                 <div className="flex items-center gap-3">
-                  <div className="relative hidden sm:block text-text-muted">
+                  <div className="relative hidden sm:block text-[var(--semantic-text-muted)]">
                     <Search className="w-3 h-3 absolute left-1.5 top-1/2 -translate-y-1/2" />
                     <input 
                       disabled
                       placeholder="Search..." 
-                      className="pl-6 pr-2 py-0.5 rounded-sm bg-bg-elevated border border-border-subtle text-[10px] w-28 text-text-primary transition-colors duration-500"
+                      className="pl-6 pr-2 py-0.5 rounded-sm bg-bg-elevated border border-[var(--semantic-border)] text-[10px] w-28 text-[var(--semantic-text-primary)] transition-colors duration-500"
                     />
                   </div>
-                  <span className="sm:hidden font-semibold text-text-primary text-xs">Dashboard</span>
+                  <span className="sm:hidden font-semibold text-[var(--semantic-text-primary)] text-xs">Dashboard</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="text-text-muted hover:text-text-primary cursor-pointer relative">
+                  <div className="text-[var(--semantic-text-muted)] hover:text-[var(--semantic-text-primary)] cursor-pointer relative">
                     <Bell className="w-3.5 h-3.5" />
                     <div className="absolute top-0 right-0 w-1.5 h-1.5 bg-brand rounded-full border border-bg-surface transition-colors duration-500" />
                   </div>
@@ -325,10 +296,10 @@ export default function Hero() {
               <div className="p-3 md:p-5 flex-1 overflow-y-auto">
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <h2 className="text-base font-bold text-text-primary transition-colors duration-500">Overview</h2>
-                    <p className="text-[10px] text-text-secondary mt-0.5 transition-colors duration-500">Welcome back to your analytics.</p>
+                    <h2 className="text-base font-bold text-[var(--semantic-text-primary)] transition-colors duration-500">Overview</h2>
+                    <p className="text-[10px] text-[var(--semantic-text-secondary)] mt-0.5 transition-colors duration-500">Welcome back to your analytics.</p>
                   </div>
-                  <div className="px-1.5 py-0.5 rounded-sm bg-bg-surface border border-border-subtle text-[10px] font-medium text-text-primary shadow-sm hidden sm:block transition-colors duration-500">
+                  <div className="px-1.5 py-0.5 rounded-sm bg-bg-surface border border-[var(--semantic-border)] text-[10px] font-medium text-[var(--semantic-text-primary)] shadow-sm hidden sm:block transition-colors duration-500">
                     Last 30 Days <ChevronRight className="w-2.5 h-2.5 inline-block ml-0.5 opacity-50" />
                   </div>
                 </div>
@@ -336,43 +307,43 @@ export default function Hero() {
                 {/* KPIs */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-3 mb-3">
                   {/* KPI 1 */}
-                  <div className="p-3 rounded-md border border-border-subtle bg-bg-surface shadow-sm transition-colors duration-500">
-                    <span className="text-[9px] font-semibold text-text-muted uppercase tracking-wider">Total Revenue</span>
+                  <div className="p-3 rounded-md border border-[var(--semantic-border)] bg-bg-surface shadow-sm transition-colors duration-500">
+                    <span className="text-[9px] font-semibold text-[var(--semantic-text-muted)] uppercase tracking-wider">Total Revenue</span>
                     <div className="mt-1 flex items-baseline gap-1.5">
-                      <span className="text-base font-bold text-text-primary transition-colors duration-500">$124,500</span>
+                      <span className="text-base font-bold text-[var(--semantic-text-primary)] transition-colors duration-500">$124,500</span>
                       <span className="text-[9px] font-bold text-status-success bg-status-success/10 px-1 py-0.5 rounded-sm transition-colors duration-500">+14.2%</span>
                     </div>
                   </div>
                   {/* KPI 2 */}
-                  <div className="p-3 rounded-md border border-border-subtle bg-bg-surface shadow-sm transition-colors duration-500">
-                    <span className="text-[9px] font-semibold text-text-muted uppercase tracking-wider">Active Users</span>
+                  <div className="p-3 rounded-md border border-[var(--semantic-border)] bg-bg-surface shadow-sm transition-colors duration-500">
+                    <span className="text-[9px] font-semibold text-[var(--semantic-text-muted)] uppercase tracking-wider">Active Users</span>
                     <div className="mt-1 flex items-baseline gap-1.5">
-                      <span className="text-base font-bold text-text-primary transition-colors duration-500">45.2K</span>
+                      <span className="text-base font-bold text-[var(--semantic-text-primary)] transition-colors duration-500">45.2K</span>
                       <span className="text-[9px] font-bold text-status-success bg-status-success/10 px-1 py-0.5 rounded-sm transition-colors duration-500">+8.1%</span>
                     </div>
                   </div>
                   {/* KPI 3 */}
-                  <div className="p-3 rounded-md border border-border-subtle bg-bg-surface shadow-sm hidden sm:block transition-colors duration-500">
-                    <span className="text-[9px] font-semibold text-text-muted uppercase tracking-wider">Avg Session</span>
+                  <div className="p-3 rounded-md border border-[var(--semantic-border)] bg-bg-surface shadow-sm hidden sm:block transition-colors duration-500">
+                    <span className="text-[9px] font-semibold text-[var(--semantic-text-muted)] uppercase tracking-wider">Avg Session</span>
                     <div className="mt-1 flex items-baseline gap-1.5">
-                      <span className="text-base font-bold text-text-primary transition-colors duration-500">4m 12s</span>
+                      <span className="text-base font-bold text-[var(--semantic-text-primary)] transition-colors duration-500">4m 12s</span>
                       <span className="text-[9px] font-bold text-status-warning bg-status-warning/10 px-1 py-0.5 rounded-sm transition-colors duration-500">-1.2%</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Big Chart Area */}
-                <div className="p-3 rounded-md border border-border-subtle bg-bg-surface shadow-sm flex-1 min-h-[120px] md:min-h-[160px] flex flex-col transition-colors duration-500">
+                <div className="p-3 rounded-md border border-[var(--semantic-border)] bg-bg-surface shadow-sm flex-1 min-h-[120px] md:min-h-[160px] flex flex-col transition-colors duration-500">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-semibold text-text-primary transition-colors duration-500">User Growth</span>
+                    <span className="text-[10px] font-semibold text-[var(--semantic-text-primary)] transition-colors duration-500">User Growth</span>
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1">
                         <div className="w-1.5 h-1.5 rounded-full bg-brand transition-colors duration-500" />
-                        <span className="text-[9px] text-text-secondary transition-colors duration-500">Current</span>
+                        <span className="text-[9px] text-[var(--semantic-text-secondary)] transition-colors duration-500">Current</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <div className="w-1.5 h-1.5 rounded-full bg-accent transition-colors duration-500" />
-                        <span className="text-[9px] text-text-secondary transition-colors duration-500">Previous</span>
+                        <span className="text-[9px] text-[var(--semantic-text-secondary)] transition-colors duration-500">Previous</span>
                       </div>
                     </div>
                   </div>

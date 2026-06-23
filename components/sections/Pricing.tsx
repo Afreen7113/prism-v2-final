@@ -32,7 +32,7 @@ export default function Pricing() {
   return (
     <section id="pricing" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 overflow-hidden text-center">
       {/* Background radial gradient */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand/10 pointer-events-none blur-[80px] z-0" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand/5 pointer-events-none blur-[40px] z-0" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         
@@ -110,7 +110,7 @@ export default function Pricing() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           
           {/* Card 1: Starter */}
-          <div className="bg-bg-elevated/60 border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-[24px] p-6 sm:p-8 flex flex-col text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-card group">
+          <div className="bg-bg-elevated/60 border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-[24px] p-6 sm:p-8 flex flex-col text-left transition-all duration-300 hover:shadow-card hover:shadow-card group">
             <div className="flex flex-col flex-1">
               <span className="text-xl font-bold text-text-primary block">Starter</span>
               <span className="text-xs text-text-secondary mt-1 block">For early-stage products</span>
@@ -157,7 +157,7 @@ export default function Pricing() {
               Most Popular
             </span>
  
-            <div className="relative bg-bg-surface border-2 border-brand/30 hover:border-brand/60 rounded-[24px] p-6 sm:p-8 flex flex-col text-left h-full shadow-card z-10 transition-all duration-300 flex-1 hover:-translate-y-1 hover:shadow-card">
+            <div className="relative bg-bg-surface border-2 border-brand/30 hover:border-brand/60 rounded-[24px] p-6 sm:p-8 flex flex-col text-left h-full shadow-card z-10 transition-all duration-300 flex-1 hover:shadow-card hover:shadow-card">
               <div className="flex flex-col flex-1">
                 <span className="text-xl font-bold text-text-primary block">Growth</span>
                 <span className="text-xs text-text-secondary mt-1 block">For scaling B2B SaaS</span>
@@ -205,7 +205,7 @@ export default function Pricing() {
           </div>
  
           {/* Card 3: Enterprise */}
-          <div className="bg-bg-elevated/60 border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-[24px] p-6 sm:p-8 flex flex-col text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-card group">
+          <div className="bg-bg-elevated/60 border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-[24px] p-6 sm:p-8 flex flex-col text-left transition-all duration-300 hover:shadow-card hover:shadow-card group">
             <div className="flex flex-col flex-1">
               <span className="text-xl font-bold text-text-primary block">Enterprise</span>
               <span className="text-xs text-text-secondary mt-1 block">For mission-critical deployments</span>

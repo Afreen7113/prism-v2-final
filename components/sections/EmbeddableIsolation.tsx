@@ -1,5 +1,8 @@
+"use client";
+
 import React from 'react';
 import { ShieldCheck, Check, LayoutDashboard, Users, Settings, BarChart3, ArrowUpRight, CheckCircle2, Bell } from 'lucide-react';
+import { presets } from '@/providers/ThemeProvider';
 
 const lightTokens = {
   "--color-bg-base": "#F8FAFC",
@@ -12,7 +15,7 @@ const lightTokens = {
   "--color-border-default": "#CBD5E1",
   "--color-brand": "#0EA5E9",
   "--color-accent": "#38BDF8",
-  "--color-success": "#10B981"
+  "--color-success": presets["fintech"]?.primaryColor as string
 } as React.CSSProperties;
 
 const darkTokens = {
@@ -24,9 +27,9 @@ const darkTokens = {
   "--color-text-muted": "#64748B",
   "--color-border-subtle": "#1E293B",
   "--color-border-default": "#334155",
-  "--color-brand": "#F59E0B",
+  "--color-brand": presets["fintech"]?.accentColor as string,
   "--color-accent": "#FCD34D",
-  "--color-success": "#10B981"
+  "--color-success": presets["fintech"]?.primaryColor as string
 } as React.CSSProperties;
 
 const isolatedTokens = {
@@ -100,7 +103,7 @@ export default function EmbeddableIsolation() {
           <div className="absolute top-1/2 left-[25%] w-px h-6 border-l-2 border-dashed border-border-default/60 -z-10" />
           <div className="absolute top-1/2 right-[25%] w-px h-6 border-r-2 border-dashed border-border-default/60 -z-10" />
           <div className="flex justify-center relative z-10">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-bg-elevated text-text-primary border border-border-subtle shadow-sm text-[10px] font-[800] uppercase tracking-widest backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-bg-elevated text-text-primary border border-border-subtle shadow-sm text-[10px] font-[800] uppercase tracking-widest">
               <CheckCircle2 className="w-3.5 h-3.5 text-success" />
               Same Prism Component
             </div>
@@ -151,7 +154,7 @@ export default function EmbeddableIsolation() {
                 {/* Fixed Embedded Component */}
                 <div className="flex-1 flex items-start sm:items-center justify-center relative w-full pt-4 sm:pt-0">
                   <div className="relative w-full max-w-[340px]" style={isolatedTokens}>
-                    <div className="absolute -top-3 -right-3 z-20 bg-brand/10 text-brand text-[9px] font-bold tracking-wider px-2 py-1 rounded border border-brand/20 uppercase shadow-sm whitespace-nowrap flex items-center gap-1 backdrop-blur-md">
+                    <div className="absolute -top-3 -right-3 z-20 bg-brand/10 text-brand text-[9px] font-bold tracking-wider px-2 py-1 rounded border border-brand/20 uppercase shadow-sm whitespace-nowrap flex items-center gap-1">
                       <CheckCircle2 className="w-3 h-3" /> Same PrismChart Component
                     </div>
                     <PrismChart />
@@ -196,7 +199,7 @@ export default function EmbeddableIsolation() {
                 {/* Fixed Embedded Component */}
                 <div className="flex-1 flex items-start sm:items-center justify-center relative w-full pt-4 sm:pt-0">
                   <div className="relative w-full max-w-[340px]" style={isolatedTokens}>
-                    <div className="absolute -top-3 -right-3 z-20 bg-brand/10 text-brand text-[9px] font-bold tracking-wider px-2 py-1 rounded border border-brand/20 uppercase shadow-sm whitespace-nowrap flex items-center gap-1 backdrop-blur-md">
+                    <div className="absolute -top-3 -right-3 z-20 bg-brand/10 text-brand text-[9px] font-bold tracking-wider px-2 py-1 rounded border border-brand/20 uppercase shadow-sm whitespace-nowrap flex items-center gap-1">
                       <CheckCircle2 className="w-3 h-3" /> Same PrismChart Component
                     </div>
                     <PrismChart />
@@ -219,27 +222,27 @@ export default function EmbeddableIsolation() {
         <div className="max-w-[900px] mx-auto bg-bg-surface border border-border-subtle rounded-[20px] p-5 md:p-6 shadow-sm mb-6 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-border-subtle/60">
            {/* Metric 1 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] text-text-primary mb-1 tracking-tight leading-none">1</div>
+             <div className="text-3xl md:text-4xl font-[900] text-[var(--semantic-text-primary)] mb-1 tracking-tight leading-none">1</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">Component Source</div>
            </div>
            {/* Metric 2 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] text-text-primary mb-1 tracking-tight leading-none">2</div>
+             <div className="text-3xl md:text-4xl font-[900] text-[var(--semantic-text-primary)] mb-1 tracking-tight leading-none">2</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">Host Applications</div>
            </div>
            {/* Metric 3 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] text-text-primary mb-1 tracking-tight leading-none">0</div>
+             <div className="text-3xl md:text-4xl font-[900] text-[var(--semantic-text-primary)] mb-1 tracking-tight leading-none">0</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">Component Rewrites</div>
            </div>
            {/* Metric 4 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] text-text-primary mb-1 tracking-tight leading-none">0</div>
+             <div className="text-3xl md:text-4xl font-[900] text-[var(--semantic-text-primary)] mb-1 tracking-tight leading-none">0</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">CSS Conflicts</div>
            </div>
            {/* Metric 5 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] mb-1 tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-brand to-accent">100%</div>
+             <div className="text-3xl md:text-4xl font-[900] text-[var(--semantic-text-primary)] mb-1 tracking-tight leading-none">100%</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">Host Isolation</div>
            </div>
         </div>
