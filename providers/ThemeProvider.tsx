@@ -54,6 +54,22 @@ const baseTheme: ThemeState = {
 };
 
 export const presets: Record<string, Partial<ThemeState>> = {
+  "prism": {
+    themeMode: "light",
+    primaryColor: "#4F46E5",
+    accentColor: "#0EA5E9",
+    surfaceColor: "#FFFFFF",
+    bgColor: "#F8FAFC",
+    textPrimary: "#0F172A",
+    textSecondary: "#475569",
+    textMuted: "#334155",
+    borderColor: "#E2E8F0",
+    elevatedColor: "#F1F5F9",
+    glassBg: "rgba(255, 255, 255, 0.75)",
+    primaryGlow: "rgba(79, 70, 229, 0.15)",
+    font: "Inter",
+    radius: 12,
+  },
   "healthcare": {
     themeMode: "light",
     primaryColor: "#0284C7",
@@ -121,6 +137,7 @@ export const presets: Record<string, Partial<ThemeState>> = {
 };
 
 export const AVAILABLE_PRESETS = [
+  { id: "prism", label: "Prism", color: `bg-[${presets["prism"]?.primaryColor}]` },
   { id: "healthcare", label: "Medical", color: "bg-info" },
   { id: "fintech", label: "Fintech", color: "bg-status-success" },
   { id: "consumer", label: "Retail", color: "bg-[var(--color-accent)]" },

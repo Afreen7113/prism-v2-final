@@ -43,16 +43,16 @@ const componentBlocks = [
     icon: FileDown,
     title: "Exports",
     description: "CSV, PDF, API",
-    color: "text-[var(--semantic-accent)]",
-    iconBg: "bg-[var(--semantic-accent-10)] border-[var(--semantic-accent-20)]",
+    color: "text-brand",
+    iconBg: "bg-[var(--semantic-primary-10)] border-[var(--semantic-primary-20)]",
     href: "/components/exports",
   },
   {
     icon: Layers,
     title: "KPI Cards",
     description: "Metrics at a glance",
-    color: "text-[var(--semantic-accent)]",
-    iconBg: "bg-[var(--semantic-accent-10)] border-[var(--semantic-accent-20)]",
+    color: "text-brand",
+    iconBg: "bg-[var(--semantic-primary-10)] border-[var(--semantic-primary-20)]",
     href: "/components/kpi-cards",
   },
 ];
@@ -67,7 +67,7 @@ const features = [
 const countries = [
   { name: "United States", pct: "48%", color: "bg-brand" },
   { name: "Canada", pct: "12%", color: "bg-status-warning" },
-  { name: "Germany", pct: "10%", color: "bg-info" },
+  { name: "Germany", pct: "10%", color: "bg-[var(--semantic-accent)]" },
   { name: "Australia", pct: "8%", color: "bg-status-success" },
   { name: "Other", pct: "22%", color: "bg-bg-elevated border border-border-subtle" },
 ];
