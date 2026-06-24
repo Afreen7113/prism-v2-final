@@ -233,7 +233,7 @@ export default function PrismDashboard({
               // Default Area Chart
               <svg className="w-full h-full" viewBox="0 0 500 130" preserveAspectRatio="none">
                 <defs>
-                  <linearGradient id="prism-dashboard-chart-grad" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id={`prism-dashboard-chart-grad-${theme || "default"}`} x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="var(--prism-chart-primary)" stopOpacity="0.3" />
                     <stop offset="100%" stopColor="var(--prism-chart-primary)" stopOpacity="0.0" />
                   </linearGradient>
@@ -245,7 +245,7 @@ export default function PrismDashboard({
                 {/* Area Fill */}
                 <path
                   d="M 0 110 Q 70 80, 140 95 T 280 40 T 420 50 T 500 15 L 500 130 L 0 130 Z"
-                  fill="url(#prism-dashboard-chart-grad)"
+                  fill={`url(#prism-dashboard-chart-grad-${theme || "default"})`}
                 />
                 
                 {/* Path Line */}

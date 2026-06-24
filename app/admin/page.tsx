@@ -52,7 +52,7 @@ export default function AdminOverview() {
               <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">Revenue</span>
             </div>
             <div className="text-2xl font-bold text-text-primary">$48,291</div>
-            <div className="flex items-center text-status-success text-xs mt-1 font-semibold"><ArrowUpRight className="w-3 h-3 mr-0.5"/> 23% vs last month</div>
+            <div className="flex items-center text-brand text-xs mt-1 font-semibold"><ArrowUpRight className="w-3 h-3 mr-0.5"/> 23% vs last month</div>
           </div>
           
           <div className="bg-bg-surface p-5 rounded-2xl border border-border-subtle shadow-sm hover:shadow-md transition-shadow">
@@ -61,7 +61,7 @@ export default function AdminOverview() {
               <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">API Requests</span>
             </div>
             <div className="text-2xl font-bold text-text-primary">4.2M</div>
-            <div className="flex items-center text-status-success text-xs mt-1 font-semibold"><ArrowUpRight className="w-3 h-3 mr-0.5"/> 12.5% vs yesterday</div>
+            <div className="flex items-center text-brand text-xs mt-1 font-semibold"><ArrowUpRight className="w-3 h-3 mr-0.5"/> 12.5% vs yesterday</div>
           </div>
 
           <div className="bg-bg-surface p-5 rounded-2xl border border-border-subtle shadow-sm hover:shadow-md transition-shadow">
@@ -70,7 +70,7 @@ export default function AdminOverview() {
               <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">Active Tenants</span>
             </div>
             <div className="text-2xl font-bold text-text-primary">24</div>
-            <div className="flex items-center text-status-success text-xs mt-1 font-semibold"><ArrowUpRight className="w-3 h-3 mr-0.5"/> 3 this month</div>
+            <div className="flex items-center text-brand text-xs mt-1 font-semibold"><ArrowUpRight className="w-3 h-3 mr-0.5"/> 3 this month</div>
           </div>
 
           <div className="bg-bg-surface p-5 rounded-2xl border border-border-subtle shadow-sm hover:shadow-md transition-shadow">
@@ -79,7 +79,7 @@ export default function AdminOverview() {
               <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">Error Rate</span>
             </div>
             <div className="text-2xl font-bold text-text-primary">0.12%</div>
-            <div className="flex items-center text-status-success text-xs mt-1 font-semibold"><ArrowDownRight className="w-3 h-3 mr-0.5"/> 0.05% vs yesterday</div>
+            <div className="flex items-center text-brand text-xs mt-1 font-semibold"><ArrowDownRight className="w-3 h-3 mr-0.5"/> 0.05% vs yesterday</div>
           </div>
 
           <div className="bg-bg-surface p-5 rounded-2xl border border-border-subtle shadow-sm hover:shadow-md transition-shadow">

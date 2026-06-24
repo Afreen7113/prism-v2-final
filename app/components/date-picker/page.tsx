@@ -175,7 +175,7 @@ export default function DatePickerPage() {
               >
                 <p className="text-[10px] text-text-muted mb-1">{m.label}</p>
                 <p className="text-xl font-bold text-text-brand">{m.value}</p>
-                <p className="text-[10px] text-status-success font-semibold mt-0.5">{m.change} vs previous period</p>
+                <p className="text-[10px] text-brand font-semibold mt-0.5">{m.change} vs previous period</p>
               </motion.div>
             ))}
           </div>

@@ -5,6 +5,7 @@ import { BarChart3, Table, Filter, Calendar, FileDown, Layers, Check } from "luc
 import { useState } from "react";
 import RevealText from "@/components/ui/RevealText";
 import Link from "next/link";
+import { useTheme } from "@/providers/ThemeProvider";
 
 const componentBlocks = [
   {
@@ -74,6 +75,7 @@ const countries = [
 
 export default function ComponentsSection() {
   const [activeTab, setActiveTab] = useState("Overview");
+  const { activePreset } = useTheme();
 
   return (
     <section id="solutions" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base text-text-brand relative z-10 border-y border-border-subtle font-sans overflow-hidden">
@@ -191,8 +193,22 @@ export default function ComponentsSection() {
                 <div className="flex flex-col w-full">
                   {/* Brand Logo */}
                   <div className="flex items-center gap-2 mb-2 sm:mb-6">
-                    <div className="w-6 h-6 rounded bg-gradient-to-tr from-[var(--prism-semantic-primary)] to-[var(--prism-semantic-accent)] flex items-center justify-center text-text-brand shadow-md">
-                      <span className="text-[10px] font-bold text-text-brand">P</span>
+                    <div className="w-6 h-6 flex items-center justify-center">
+                      <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_8px_var(--semantic-primary-glow)]">
+                        <defs>
+                          <linearGradient id={`prism-grad-components-${activePreset || "default"}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="var(--semantic-primary)" />
+                            <stop offset="100%" stopColor="var(--semantic-accent)" />
+                          </linearGradient>
+                          <linearGradient id={`prism-grad-components-2-${activePreset || "default"}`} x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="var(--semantic-accent)" />
+                            <stop offset="100%" stopColor="var(--semantic-primary)" />
+                          </linearGradient>
+                        </defs>
+                        <path d="M50 10 L15 75 L50 90 Z" fill={`url(#prism-grad-components-${activePreset || "default"})`} />
+                        <path d="M50 10 L50 90 L85 75 Z" fill={`url(#prism-grad-components-2-${activePreset || "default"})`} />
+                        <path d="M50 10 L50 90" stroke="rgba(255, 255, 255, 0.3)" strokeWidth="1.5" />
+                      </svg>
                     </div>
                     <span className="font-bold text-sm tracking-tight text-text-brand">Prism</span>
                   </div>
@@ -207,7 +223,7 @@ export default function ComponentsSection() {
                           onClick={() => setActiveTab(item)}
                           className={`text-left text-xs px-2.5 py-1.5 rounded-lg transition-all ${
                             isActive
-                              ? "bg-[var(--prism-semantic-primary)]/10 text-[var(--prism-semantic-primary)] font-semibold"
+                              ? "bg-brand/10 text-brand font-semibold"
                               : "text-slate-400 hover:text-text-brand hover:bg-bg-base/5 font-medium"
                           }`}
                         >
@@ -220,7 +236,7 @@ export default function ComponentsSection() {
                 
                 {/* User Info (Mobile) */}
                 <div className="flex sm:hidden items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-[var(--prism-semantic-primary)]/10 border border-[var(--prism-semantic-primary)]/20 flex items-center justify-center text-[10px] font-bold text-[var(--prism-semantic-primary)]">
+                  <div className="w-7 h-7 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center text-[10px] font-bold text-brand">
                     AW
                   </div>
                 </div>
@@ -246,7 +262,7 @@ export default function ComponentsSection() {
                       <div className="w-5 h-5 rounded-full border border-[var(--prism-dashboard-bg)] bg-bg-elevated overflow-hidden flex items-center justify-center text-[6px] font-bold text-text-brand">
                         <span>A</span>
                       </div>
-                      <div className="w-5 h-5 rounded-full border border-[var(--prism-dashboard-bg)] bg-[var(--prism-semantic-primary)] overflow-hidden flex items-center justify-center text-[6px] font-bold text-text-brand">
+                      <div className="w-5 h-5 rounded-full border border-[var(--prism-dashboard-bg)] bg-brand overflow-hidden flex items-center justify-center text-[6px] font-bold text-white">
                         <span>B</span>
                       </div>
                     </div>
@@ -270,7 +286,7 @@ export default function ComponentsSection() {
                       <div className="flex items-baseline justify-between mt-1 gap-1 flex-wrap">
                         <span className="text-xs font-bold text-[var(--prism-dashboard-text)]">{card.val}</span>
                         <span className={`text-[8px] font-bold px-1 py-0.2 rounded-full ${
-                          card.isUp ? "bg-[var(--prism-semantic-primary)]/10 text-[var(--prism-semantic-primary)]" : "bg-[var(--prism-semantic-accent)]/10 text-[var(--prism-semantic-accent)]"
+                          card.isUp ? "bg-brand/10 text-brand" : "bg-accent/10 text-accent"
                         }`}>
                           {card.trend}
                         </span>
@@ -300,19 +316,19 @@ export default function ComponentsSection() {
                       {/* Smooth Area Chart SVG */}
                       <svg viewBox="0 0 300 120" className="w-full h-full z-10" preserveAspectRatio="none">
                         <defs>
-                          <linearGradient id="mockupGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="var(--prism-chart-primary)" stopOpacity="0.25" />
-                            <stop offset="100%" stopColor="var(--prism-chart-primary)" stopOpacity="0.0" />
+                          <linearGradient id={`mockupGrad-${activePreset || "default"}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="var(--semantic-primary)" stopOpacity="0.25" />
+                            <stop offset="100%" stopColor="var(--semantic-primary)" stopOpacity="0.0" />
                           </linearGradient>
                         </defs>
                         <path
-                          d="M 0 90 Q 30 75 60 85 T 120 40 T 180 60 T 240 45 T 300 20 L 300 120 L 0 120 Z"
-                          fill="url(#mockupGrad)"
+                          d="M 0 100 C 30 100, 50 80, 80 85 C 110 90, 130 55, 160 50 C 190 45, 210 65, 240 40 C 270 15, 285 20, 300 15 L 300 120 L 0 120 Z"
+                          fill={`url(#mockupGrad-${activePreset || "default"})`}
                         />
                         <path
-                          d="M 0 90 Q 30 75 60 85 T 120 40 T 180 60 T 240 45 T 300 20"
+                          d="M 0 100 C 30 100, 50 80, 80 85 C 110 90, 130 55, 160 50 C 190 45, 210 65, 240 40 C 270 15, 285 20, 300 15"
                           fill="none"
-                          stroke="var(--prism-chart-primary)"
+                          stroke="var(--semantic-primary)"
                           strokeWidth="2.5"
                           strokeLinecap="round"
                         />
@@ -349,7 +365,7 @@ export default function ComponentsSection() {
                           {/* Mini Progress bar */}
                           <div className="w-full h-1 bg-bg-base/5 border border-border-subtle rounded-full overflow-hidden">
                             <div 
-                              className="h-full rounded-full bg-[var(--prism-chart-primary)]"
+                              className="h-full rounded-full bg-brand"
                               style={{ width: c.pct }}
                             />
                           </div>

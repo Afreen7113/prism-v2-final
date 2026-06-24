@@ -347,6 +347,7 @@ export default function ThemePlayground() {
             {/* Dashboard Container */}
             <div className="p-4 bg-bg-base/[0.01] flex-1 flex flex-col h-full min-h-[500px]">
               <PrismDashboard
+                theme={activePreset}
                 title={activePreset === "healthcare" ? "Clinix EHR Portal" : activePreset === "fintech" ? "Apex Ledger" : activePreset === "consumer" ? "ShopSync Hub" : "Prism Dashboard"}
                 chartMetric={activePreset === "healthcare" ? "Daily Admissions" : activePreset === "fintech" ? "Ledger Volume" : activePreset === "consumer" ? "Gross Orders" : "API requests"}
               />

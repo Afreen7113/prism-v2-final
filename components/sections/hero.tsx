@@ -13,7 +13,7 @@ type ShowcaseTheme = {
   tokens: React.CSSProperties;
 };
 
-const showcaseThemes: ShowcaseTheme[] = AVAILABLE_PRESETS.slice(0, 3).map((p) => {
+const showcaseThemes: ShowcaseTheme[] = AVAILABLE_PRESETS.slice(1, 4).map((p) => {
   const t = presets[p.id];
   
   return {
@@ -311,7 +311,7 @@ export default function Hero() {
                     <span className="text-[9px] font-semibold text-[var(--semantic-text-muted)] uppercase tracking-wider">Total Revenue</span>
                     <div className="mt-1 flex items-baseline gap-1.5">
                       <span className="text-base font-bold text-[var(--semantic-text-primary)] transition-colors duration-500">$124,500</span>
-                      <span className="text-[9px] font-bold text-status-success bg-status-success/10 px-1 py-0.5 rounded-sm transition-colors duration-500">+14.2%</span>
+                      <span className="text-[9px] font-bold text-[var(--color-primary)] bg-[var(--color-primary-8)] px-1 py-0.5 rounded-sm transition-colors duration-500">+14.2%</span>
                     </div>
                   </div>
                   {/* KPI 2 */}
@@ -319,7 +319,7 @@ export default function Hero() {
                     <span className="text-[9px] font-semibold text-[var(--semantic-text-muted)] uppercase tracking-wider">Active Users</span>
                     <div className="mt-1 flex items-baseline gap-1.5">
                       <span className="text-base font-bold text-[var(--semantic-text-primary)] transition-colors duration-500">45.2K</span>
-                      <span className="text-[9px] font-bold text-status-success bg-status-success/10 px-1 py-0.5 rounded-sm transition-colors duration-500">+8.1%</span>
+                      <span className="text-[9px] font-bold text-[var(--color-primary)] bg-[var(--color-primary-8)] px-1 py-0.5 rounded-sm transition-colors duration-500">+8.1%</span>
                     </div>
                   </div>
                   {/* KPI 3 */}

@@ -26,11 +26,11 @@ const barData = months.slice(0, 7).map((m) => ({
 }));
 
 const pieData = [
-  { name: "Organic",  value: 38, color: "var(--data-1)" },
-  { name: "Paid Ads", value: 24, color: "var(--data-7)" },
-  { name: "Referral", value: 19, color: "var(--data-5)" },
-  { name: "Direct",   value: 12, color: "var(--data-2)" },
-  { name: "Social",   value: 7,  color: "var(--data-4)" },
+  { name: "Organic",  value: 38, color: "var(--color-primary)" },
+  { name: "Paid Ads", value: 24, color: "var(--color-accent)" },
+  { name: "Referral", value: 19, color: "var(--color-success)" },
+  { name: "Direct",   value: 12, color: "var(--color-warning)" },
+  { name: "Social",   value: 7,  color: "var(--color-error)" },
 ];
 
 const areaData = months.map((m, i) => ({
@@ -129,7 +129,7 @@ useEffect(() => {
             >
               <p className="text-xs text-text-muted mb-1">{m.label}</p>
               <p className="text-2xl font-bold text-text-brand">{m.value}</p>
-              <p className={`text-xs font-semibold mt-1 ${m.up ? "text-status-success" : "text-status-error"}`}>{m.change} vs last period</p>
+              <p className={`text-xs font-semibold mt-1 ${m.up ? "text-brand" : "text-status-error"}`}>{m.change} vs last period</p>
             </motion.div>
           ))}
         </div>
@@ -196,33 +196,6 @@ useEffect(() => {
                   <XAxis dataKey="month" tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
                   <YAxis tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
                   <Tooltip content={<CUSTOM_TOOLTIP />} />
-                  <Legend />
-                  {(activeMetric === "revenue" || activeMetric === "users") && (
-                    <Line
-                      type="monotone"
-                      dataKey={activeMetric}
-                      stroke={activeMetric === "revenue" ? "var(--data-1)" : "var(--data-2)"}
-                      strokeWidth={2.5}
-                      dot={{ fill: activeMetric === "revenue" ? "var(--data-1)" : "var(--data-2)", r: 4 }}
-                      activeDot={{ r: 7 }}
-                    />
-                  )}
-                </LineChart>
-              ) : activeChart === "bar" ? (
-                <BarChart data={barData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="var(--color-chart-axis)" />
-                  <XAxis dataKey="month" tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
-                  <YAxis tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
-                  <Tooltip content={<CUSTOM_TOOLTIP />} />
-                  <Legend />
-                  <Bar dataKey="sales" fill="var(--data-1)" radius={[4, 4, 0, 0]} name="Sales" />
-                  <Bar dataKey="returns" fill="var(--data-4)" radius={[4, 4, 0, 0]} name="Returns" />
-                </BarChart>
-              ) : activeChart === "pie" ? (
-                <PieChart>
-                  <Pie data={pieData} cx="50%" cy="50%" outerRadius={130} innerRadius={60} dataKey="value" label={({ name, value }) => `${name}: ${value}%`} labelLine>
-                    {pieData.map((entry, index) => (
-                      <Cell key={index} fill={entry.color} />
                     ))}
                   </Pie>
                   <Tooltip content={<CUSTOM_TOOLTIP />} />
@@ -231,7 +204,7 @@ useEffect(() => {
               ) : activeChart === "area" ? (
                 <AreaChart data={areaData}>
                   <defs>
-                    {([["web", "var(--data-1)"], ["mobile", "var(--data-7)"], ["api", "var(--data-8)"]] as [string, string][]).map(([key, color]) => (
+                    {(["web", "var(--color-primary)"], ["mobile", "var(--color-accent)"], ["api", "var(--color-info)"]] as [string, string][]).map(([key, color]) => (
                       <linearGradient key={key} id={`grad-${key}`} x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor={color} stopOpacity={0.3} />
                         <stop offset="95%" stopColor={color} stopOpacity={0} />
@@ -243,16 +216,16 @@ useEffect(() => {
                   <YAxis tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
                   <Tooltip content={<CUSTOM_TOOLTIP />} />
                   <Legend />
-                  <Area type="monotone" dataKey="web" stroke="var(--data-1)" fill="url(#grad-web)" strokeWidth={2} name="Web" />
-                  <Area type="monotone" dataKey="mobile" stroke="var(--data-7)" fill="url(#grad-mobile)" strokeWidth={2} name="Mobile" />
-                  <Area type="monotone" dataKey="api" stroke="var(--data-8)" fill="url(#grad-api)" strokeWidth={2} name="API" />
+                  <Area type="monotone" dataKey="web" stroke="var(--color-primary)" fill="url(#grad-web)" strokeWidth={2} name="Web" />
+                  <Area type="monotone" dataKey="mobile" stroke="var(--color-accent)" fill="url(#grad-mobile)" strokeWidth={2} name="Mobile" />
+                  <Area type="monotone" dataKey="api" stroke="var(--color-info)" fill="url(#grad-api)" strokeWidth={2} name="API" />
                 </AreaChart>
               ) : activeChart === "radar" ? (
                 <RadarChart cx="50%" cy="50%" outerRadius={130} data={radarData}>
                   <PolarGrid stroke="var(--color-chart-axis)" />
                   <PolarAngleAxis dataKey="metric" tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
-                  <Radar name="Product A" dataKey="A" stroke="var(--data-1)" fill="var(--data-1)" fillOpacity={0.25} />
-                  <Radar name="Product B" dataKey="B" stroke="var(--data-2)" fill="var(--data-2)" fillOpacity={0.2} />
+                  <Radar name="Product A" dataKey="A" stroke="var(--color-primary)" fill="var(--color-primary)" fillOpacity={0.25} />
+                  <Radar name="Product B" dataKey="B" stroke="var(--color-accent)" fill="var(--color-accent)" fillOpacity={0.2} />
                   <Legend />
                   <Tooltip content={<CUSTOM_TOOLTIP />} />
                 </RadarChart>
@@ -262,7 +235,7 @@ useEffect(() => {
                   <XAxis type="number" dataKey="x" name="Sessions" tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
                   <YAxis type="number" dataKey="y" name="Conversions" tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
                   <Tooltip content={<CUSTOM_TOOLTIP />} cursor={{ strokeDasharray: "3 3" }} />
-                  <Scatter name="Users" data={scatterData} fill="var(--data-1)" fillOpacity={0.7} />
+                  <Scatter name="Users" data={scatterData} fill="var(--color-primary)" fillOpacity={0.7} />
                 </ScatterChart>
               )}
             </ResponsiveContainer>

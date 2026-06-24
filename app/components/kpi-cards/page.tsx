@@ -184,7 +184,7 @@ function Sparkline({ data, positive }: { data: number[]; positive: boolean }) {
   const pts = data.map((v, i) => `${(i / (data.length - 1)) * W},${H - ((v - min) / range) * (H - 4) - 2}`).join(" ");
   return (
     <svg width={W} height={H} className="opacity-70">
-      <polyline fill="none" stroke={positive ? "var(--color-success)" : "var(--color-error)"} strokeWidth="1.5" points={pts} />
+      <polyline fill="none" stroke={positive ? "var(--prism-chart-primary, var(--color-primary))" : "var(--color-error)"} strokeWidth="1.5" points={pts} />
     </svg>
   );
 }
@@ -326,10 +326,10 @@ export default function KPICardsPage() {
                     </div>
                     <div className="flex items-center gap-4">
                       <Sparkline data={kpi.sparkline} positive={isPositive} />
-                      <div className={`flex items-center gap-0.5 text-xs font-bold ${isPositive ? "text-status-success" : "text-status-error"}`}>
+                      <span className={`text-xs font-semibold flex items-center ${isPositive ? "text-brand" : "text-status-error"}`}>
                         <ChangeIcon className="w-3.5 h-3.5" />
                         {Math.abs(kpi.change)}%
-                      </div>
+                      </span>
                     </div>
                   </motion.div>
                 );
@@ -348,7 +348,7 @@ export default function KPICardsPage() {
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${kpi.iconBg}`}>
                         <Icon className={`w-5 h-5 ${kpi.iconColor}`} />
                       </div>
-                      <div className={`flex items-center gap-0.5 text-[10px] font-bold px-2 py-0.5 rounded-full border ${isPositive ? "text-status-success bg-status-success/10 border-success/20" : "text-status-error bg-status-error/10 border-error/20"}`}>
+                      <div className={`flex items-center gap-0.5 text-[10px] font-bold px-2 py-0.5 rounded-full border ${isPositive ? "text-brand bg-brand/10 border-brand/20" : "text-status-error bg-status-error/10 border-error/20"}`}>
                         <ChangeIcon className="w-3 h-3" />
                         {Math.abs(kpi.change)}%
                       </div>
