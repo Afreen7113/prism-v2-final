@@ -612,7 +612,7 @@ export default function ChartBuilder() {
                       onClick={() => setChartType(item.id as "Bar" | "Line" | "Area" | "Donut" | "Table")}
                       className={`flex-1 min-w-[80px] flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
                         isActive
-                          ? "bg-brand text-text-on-primary shadow-lg shadow-primary/10"
+                          ? "bg-brand text-text-on-primary shadow-sm"
                           : "text-text-secondary hover:text-text-brand hover:bg-bg-surface/40"
                       }`}
                     >
@@ -1147,7 +1147,7 @@ export default function ChartBuilder() {
             {/* SECTION 4: EXPORT ACTIONS */}
             <div className="flex flex-col gap-3">
               <div className="grid grid-cols-2 gap-2.5">
-                <Button variant="primary" size="sm" onClick={() => {}} className="w-full text-xs shadow-lg shadow-brand/20">
+                <Button variant="primary" size="sm" onClick={() => {}} className="w-full text-xs shadow-sm">
                   <Play className="w-3.5 h-3.5 mr-2" />
                   Save Widget
                 </Button>

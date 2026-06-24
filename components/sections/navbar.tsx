@@ -50,7 +50,7 @@ export default function Navbar() {
               transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
               className="w-8 h-8 flex items-center justify-center cursor-pointer"
             >
-              <svg viewBox="0 0 100 100" className="w-7 h-7 drop-shadow-[0_0_8px_var(--semantic-primary-glow)]">
+              <svg viewBox="0 0 100 100" className="w-7 h-7">
                 <defs>
                   <linearGradient id="prism-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="var(--color-primary)" />

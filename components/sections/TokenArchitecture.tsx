@@ -257,7 +257,7 @@ export default function TokenArchitecture() {
                 
                 {/* Arrow 1 */}
                 <div className="hidden md:flex items-center justify-center w-8 z-0">
-                  <ArrowRight className="w-6 h-6 text-brand/60 drop-shadow-[0_0_8px_rgba(2,132,199,0.3)]" />
+                  <ArrowRight className="w-6 h-6 text-brand/60" />
                 </div>
                 <div className="md:hidden py-2">
                   <ArrowDown className="w-6 h-6 text-brand/60" />
@@ -274,7 +274,7 @@ export default function TokenArchitecture() {
 
                 {/* Arrow 2 */}
                 <div className="hidden md:flex items-center justify-center w-8 z-0">
-                  <ArrowRight className="w-6 h-6 text-brand/80 drop-shadow-[0_0_8px_rgba(2,132,199,0.4)]" />
+                  <ArrowRight className="w-6 h-6 text-brand/80" />
                 </div>
                 <div className="md:hidden py-2">
                   <ArrowDown className="w-6 h-6 text-brand/80" />
@@ -291,7 +291,7 @@ export default function TokenArchitecture() {
 
                 {/* Arrow 3 */}
                 <div className="hidden md:flex items-center justify-center w-8 z-0">
-                  <ArrowRight className="w-6 h-6 text-brand drop-shadow-[0_0_12px_rgba(2,132,199,0.5)]" />
+                  <ArrowRight className="w-6 h-6 text-brand" />
                 </div>
                 <div className="md:hidden py-2">
                   <ArrowDown className="w-6 h-6 text-brand" />
@@ -327,7 +327,7 @@ export default function TokenArchitecture() {
               
               {/* Token Overrides - Left (Medical/Blue) */}
               <div 
-                className="rounded-2xl overflow-hidden border border-[var(--semantic-border)] shadow-xl bg-[var(--semantic-bg)] flex flex-col h-full"
+                className="rounded-2xl overflow-hidden border border-[var(--semantic-border)] shadow-md bg-[var(--semantic-bg)] flex flex-col h-full"
                 style={getPresetStyles("healthcare")}
               >
                 <div className="bg-[var(--semantic-primary)] px-5 py-3 flex items-center justify-between border-b border-[var(--semantic-border)] shrink-0">

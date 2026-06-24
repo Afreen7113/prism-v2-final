@@ -157,7 +157,7 @@ export default function Hero() {
           >
             <Link
               href="#api"
-              className="group relative inline-flex items-center gap-2 px-8 py-3.5 font-bold text-text-on-primary rounded-lg bg-brand shadow-md shadow-brand/20 hover:shadow-lg hover:shadow-brand/30 active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[52px]"
+              className="group relative inline-flex items-center gap-2 px-8 py-3.5 font-bold text-text-on-primary rounded-lg bg-brand shadow-sm hover:shadow-md active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[52px]"
             >
               <motion.span
                 initial={{ x: "-150%" }}

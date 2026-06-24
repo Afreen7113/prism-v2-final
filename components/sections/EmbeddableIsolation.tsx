@@ -153,9 +153,9 @@ export default function EmbeddableIsolation() {
                 
                 {/* Fixed Embedded Component */}
                 <div className="flex-1 flex items-start sm:items-center justify-center relative w-full pt-4 sm:pt-0">
-                  <div className="relative w-full max-w-[340px]" style={isolatedTokens}>
-                    <div className="absolute -top-3 -right-3 z-20 bg-brand/10 text-brand text-[9px] font-bold tracking-wider px-2 py-1 rounded border border-brand/20 uppercase shadow-sm whitespace-nowrap flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" /> Same PrismChart Component
+                  <div className="w-full max-w-[340px] flex flex-col gap-2.5" style={isolatedTokens}>
+                    <div className="bg-brand/10 text-brand text-[9px] font-bold tracking-wider px-2.5 py-1 rounded-md border border-brand/20 uppercase whitespace-nowrap flex items-center gap-1 w-fit shadow-sm">
+                      <CheckCircle2 className="w-3.5 h-3.5" /> Same PrismChart Component
                     </div>
                     <PrismChart />
                   </div>
@@ -198,9 +198,9 @@ export default function EmbeddableIsolation() {
                 
                 {/* Fixed Embedded Component */}
                 <div className="flex-1 flex items-start sm:items-center justify-center relative w-full pt-4 sm:pt-0">
-                  <div className="relative w-full max-w-[340px]" style={isolatedTokens}>
-                    <div className="absolute -top-3 -right-3 z-20 bg-brand/10 text-brand text-[9px] font-bold tracking-wider px-2 py-1 rounded border border-brand/20 uppercase shadow-sm whitespace-nowrap flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" /> Same PrismChart Component
+                  <div className="w-full max-w-[340px] flex flex-col gap-2.5" style={isolatedTokens}>
+                    <div className="bg-brand/10 text-brand text-[9px] font-bold tracking-wider px-2.5 py-1 rounded-md border border-brand/20 uppercase whitespace-nowrap flex items-center gap-1 w-fit shadow-sm">
+                      <CheckCircle2 className="w-3.5 h-3.5" /> Same PrismChart Component
                     </div>
                     <PrismChart />
                   </div>

@@ -194,7 +194,7 @@ export default function ComponentsSection() {
                   {/* Brand Logo */}
                   <div className="flex items-center gap-2 mb-2 sm:mb-6">
                     <div className="w-6 h-6 flex items-center justify-center">
-                      <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_8px_var(--semantic-primary-glow)]">
+                      <svg viewBox="0 0 100 100" className="w-full h-full">
                         <defs>
                           <linearGradient id={`prism-grad-components-${activePreset || "default"}`} x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="var(--semantic-primary)" />
