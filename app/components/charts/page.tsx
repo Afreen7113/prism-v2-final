@@ -64,7 +64,7 @@ const CHART_TYPES = [
   { id: "scatter", label: "Scatter", Icon: Maximize2 },
 ];
 
-const CUSTOM_TOOLTIP = ({ active, payload, label }: { active?: boolean; payload?: Array<{ name: string; value: number; color: string }>; label?: string }) => {
+const CUSTOM_TOOLTIP = ({ active, payload, label }: { active?: boolean; payload?: { name: string; value: number; color: string }[]; label?: string }) => {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-bg-surface border border-border-subtle rounded-xl p-3 shadow-lg text-xs">
@@ -80,7 +80,7 @@ const CUSTOM_TOOLTIP = ({ active, payload, label }: { active?: boolean; payload?
 
 export default function ChartsPage() {
   const [activeChart, setActiveChart] = useState("line");
-  const [activeMetric, setActiveMetric] = useState<"revenue" | "users">("revenue");
+  const [activeMetric, setActiveMetric] = useState("revenue" as "revenue" | "users");
 const [mounted, setMounted] = useState(false);
 
 useEffect(() => {
@@ -196,6 +196,28 @@ useEffect(() => {
                   <XAxis dataKey="month" tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
                   <YAxis tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
                   <Tooltip content={<CUSTOM_TOOLTIP />} />
+                  <Legend />
+                  {activeMetric === "revenue" ? (
+                    <Line type="monotone" dataKey="revenue" stroke="var(--color-primary)" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} name="Revenue" />
+                  ) : (
+                    <Line type="monotone" dataKey="users" stroke="var(--color-accent)" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} name="Users" />
+                  )}
+                </LineChart>
+              ) : activeChart === "bar" ? (
+                <BarChart data={barData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--color-chart-axis)" />
+                  <XAxis dataKey="month" tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
+                  <YAxis tick={{ fontSize: 11, fill: "var(--color-chart-axis)" }} />
+                  <Tooltip content={<CUSTOM_TOOLTIP />} />
+                  <Legend />
+                  <Bar dataKey="sales" fill="var(--color-primary)" radius={[4, 4, 0, 0]} name="Sales" />
+                  <Bar dataKey="returns" fill="var(--color-error)" radius={[4, 4, 0, 0]} name="Returns" />
+                </BarChart>
+              ) : activeChart === "pie" ? (
+                <PieChart>
+                  <Pie data={pieData} cx="50%" cy="50%" innerRadius={70} outerRadius={110} paddingAngle={5} dataKey="value">
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} stroke="transparent" />
                     ))}
                   </Pie>
                   <Tooltip content={<CUSTOM_TOOLTIP />} />
@@ -204,7 +226,7 @@ useEffect(() => {
               ) : activeChart === "area" ? (
                 <AreaChart data={areaData}>
                   <defs>
-                    {(["web", "var(--color-primary)"], ["mobile", "var(--color-accent)"], ["api", "var(--color-info)"]] as [string, string][]).map(([key, color]) => (
+                    {([ ["web", "var(--color-primary)"], ["mobile", "var(--color-accent)"], ["api", "var(--color-info)"] ] as [string, string][]).map(([key, color]) => (
                       <linearGradient key={key} id={`grad-${key}`} x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor={color} stopOpacity={0.3} />
                         <stop offset="95%" stopColor={color} stopOpacity={0} />
